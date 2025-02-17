@@ -2,7 +2,7 @@ package dto;
 
 import java.sql.Timestamp;
 
-public class CommonBoardDTO {
+public class ComBoardDTO {
 	private int c_seq;
 	private String title;
 	private String contents;
@@ -52,7 +52,7 @@ public class CommonBoardDTO {
 	public void setNotice(String notice) {
 		this.notice = notice;
 	}
-	public CommonBoardDTO(int c_seq, String title, String contents, String m_id, Timestamp write_date, int view_count,
+	public ComBoardDTO(int c_seq, String title, String contents, String m_id, Timestamp write_date, int view_count,
 			String notice) {
 		this.c_seq = c_seq;
 		this.title = title;

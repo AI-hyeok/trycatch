@@ -2,7 +2,7 @@ package dto;
 
 import java.sql.Timestamp;
 
-public class qua_answersDTO {
+public class Qua_answersDTO {
 	private int a_seq;
 	private int q_parent_seq;
 	private String m_id;
@@ -38,7 +38,7 @@ public class qua_answersDTO {
 	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
-	public qua_answersDTO(int a_seq, int q_parent_seq, String m_id, String contents, Timestamp write_date) {
+	public Qua_answersDTO(int a_seq, int q_parent_seq, String m_id, String contents, Timestamp write_date) {
 		this.a_seq = a_seq;
 		this.q_parent_seq = q_parent_seq;
 		this.m_id = m_id;

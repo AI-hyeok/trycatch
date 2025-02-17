@@ -1,6 +1,6 @@
 package dto;
 
-public class gameDTO {
+public class GameDTO {
 	private int id;
 	private String gamename;
 	private int favorite_game;
@@ -23,7 +23,7 @@ public class gameDTO {
 	public void setFavorite_game(int favorite_game) {
 		this.favorite_game = favorite_game;
 	}
-	public gameDTO(int id, String gamename, int favorite_game) {
+	public GameDTO(int id, String gamename, int favorite_game) {
 		this.id = id;
 		this.gamename = gamename;
 		this.favorite_game = favorite_game;

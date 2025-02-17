@@ -2,7 +2,7 @@ package dto;
 
 import java.sql.Timestamp;
 
-public class qnaboardDTO {
+public class QnaboardDTO {
 	private int q_seq;
 	private String m_id;
 	private String title;
@@ -45,7 +45,7 @@ public class qnaboardDTO {
 	public void setSecret(String secret) {
 		this.secret = secret;
 	}
-	public qnaboardDTO(int q_seq, String m_id, String title, String contents, Timestamp write_date, String secret) {
+	public QnaboardDTO(int q_seq, String m_id, String title, String contents, Timestamp write_date, String secret) {
 		this.q_seq = q_seq;
 		this.m_id = m_id;
 		this.title = title;
