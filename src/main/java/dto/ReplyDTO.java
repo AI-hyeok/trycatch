@@ -7,6 +7,7 @@ public class ReplyDTO {
 	private int r_seq ;
 	private int c_parent_seq;
 	private String m_id;
+	private String m_nickname;
 	private String contents;
 	private Timestamp write_date;
 	public int getR_seq() {
@@ -27,6 +28,12 @@ public class ReplyDTO {
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
 	}
+	public String getM_nickname() {
+		return m_nickname;
+	}
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
 	public String getContents() {
 		return contents;
 	}
@@ -40,10 +47,11 @@ public class ReplyDTO {
 		this.write_date = write_date;
 	}
 	
-	public ReplyDTO(int r_seq, int c_parent_seq, String m_id, String contents, Timestamp write_date) {
+	public ReplyDTO(int r_seq, int c_parent_seq, String m_id, String m_nickname,String contents, Timestamp write_date) {
 		this.r_seq = r_seq;
 		this.c_parent_seq = c_parent_seq;
 		this.m_id = m_id;
+		this.m_nickname = m_nickname;
 		this.contents = contents;
 		this.write_date = write_date;
 	}

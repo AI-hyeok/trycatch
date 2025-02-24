@@ -7,6 +7,7 @@ public class MembersDTO {
 	private String pw;
 	private String name;
 	private String nickname;
+	private String birth;
 	private String email;
 	private String phone;
 	private String sexual;
@@ -15,6 +16,7 @@ public class MembersDTO {
 	private String address2;
 	private Timestamp signup_date;
 	private int warning_count;
+	
 	public String getM_id() {
 		return m_id;
 	}
@@ -39,6 +41,14 @@ public class MembersDTO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -87,12 +97,13 @@ public class MembersDTO {
 	public void setWarning_count(int warning_count) {
 		this.warning_count = warning_count;
 	}
-	public MembersDTO(String m_id, String pw, String name, String nickname, String email, String phone, String sexual,
+	public MembersDTO(String m_id, String pw, String name, String nickname, String birth, String email, String phone, String sexual,
 			String postcode, String address1, String address2, Timestamp signup_date, int warning_count) {
 		this.m_id = m_id;
 		this.pw = pw;
 		this.name = name;
 		this.nickname = nickname;
+		this.birth = birth;
 		this.email = email;
 		this.phone = phone;
 		this.sexual = sexual;

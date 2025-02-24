@@ -4,6 +4,10 @@ public class GameDTO {
 	private int id;
 	private String gamename;
 	private int favorite_game;
+	
+    public GameDTO() {
+    }
+	
 	public int getId() {
 		return id;
 	}

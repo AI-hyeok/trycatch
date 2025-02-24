@@ -5,6 +5,10 @@ public class GamescoreDTO {
 	private int g_id;
 	private String m_id;
 	private int score;
+	
+    public GamescoreDTO() {
+    }
+	
 	public int getS_seq() {
 		return s_seq;
 	}
