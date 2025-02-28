@@ -70,4 +70,37 @@ public class Qna_answerDAO {
 	    return false;  // 댓글 없음
 	}
 	
+	public int updateAnswer(String contents, int a_seq) throws Exception {
+        String sql = "UPDATE qna_answers SET contents = ? WHERE a_seq = ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, contents);
+            pstmt.setInt(2, a_seq);
+            int result = pstmt.executeUpdate();
+            return result;
+        }
+    }
+
+    // 답변 삭제
+    public void deleteAnswer(int a_seq) throws Exception {
+        String sql = "DELETE FROM qna_answers WHERE a_seq = ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, a_seq);
+            pstmt.executeUpdate();
+        }
+    }
+
+    // 답변 ID로 조회
+    public Qna_answersDTO getAnswerById(int a_seq) throws Exception {
+        String sql = "SELECT * FROM qna_answers WHERE a_seq = ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, a_seq);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Qna_answersDTO(rs.getInt("a_seq"), rs.getInt("q_parent_seq"), rs.getString("m_id"),
+                        rs.getString("contents"), rs.getTimestamp("write_date"));
+            }
+        }
+        return null; // 해당 ID의 답변이 없다면 null 반환
+    }
+	
 }

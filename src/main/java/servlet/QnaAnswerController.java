@@ -41,6 +41,28 @@ public class QnaAnswerController extends HttpServlet {
 				if(lists == null) lists = new ArrayList<>();
 				response.setContentType("text/html; charset=utf8");
 				response.getWriter().append(g.toJson(lists));
+				
+			}else if(cmd.equals("/update.answer")) {
+				int a_seq = Integer.parseInt(request.getParameter("a_seq")); // 수정할 답변의 ID
+			    String updatedContent = request.getParameter("contents");
+			    int q_seq = Integer.parseInt(request.getParameter("q_seq"));
+			    
+			   
+			   answerDao.updateAnswer(updatedContent,a_seq);
+			    
+			    
+			    response.sendRedirect("/qnadetail.qnaboard?q_seq=" + q_seq); // 수정 후 게시글 상세로 리다이렉트
+				 
+			}
+			
+			// 답변 삭제
+			else if(cmd.equals("/delete.answer")) {
+				 int a_seq= Integer.parseInt(request.getParameter("a_seq")); // 삭제할 답변의 ID
+				 int q_seq = Integer.parseInt(request.getParameter("q_seq"));
+				    // 답변 삭제
+				    answerDao.deleteAnswer(a_seq);
+
+				    response.sendRedirect("/qnadetail.qnaboard?q_seq=" + q_seq); // 삭제 후 게시글 상세로 리다이렉트
 			}
 			
 			

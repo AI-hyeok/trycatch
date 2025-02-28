@@ -74,9 +74,16 @@ public class QnaBoardController extends HttpServlet {
 				if(endNavi == pageTotalCount) {needNext = false;}
 				
 				for (QnaboardDTO dto : list) {
-	                 boolean hasAnswer = adao.hasAnswer(dto.getQ_seq());
-	                 dto.setHasAnswer(hasAnswer);  
-	                }
+                    boolean hasAnswer = adao.hasAnswer(dto.getQ_seq());  
+                    dto.setHasAnswer(hasAnswer);
+
+                    if ("Y".equals(dto.getSecret())) {  
+                        if (loginId == null || !(loginId.equals(dto.getM_id()) || "admin".equals(loginId))) {                    
+                            dto.setTitle("비공개 질문입니다.");
+                            dto.setContents("비공개");
+                        }
+                    }
+                }
 				request.getSession().setAttribute("loginID", loginId);
 				
 				request.setAttribute("list", list);	
@@ -116,9 +123,10 @@ public class QnaBoardController extends HttpServlet {
 				String loginID = (String)request.getSession().getAttribute("loginID");
 				int seq = Integer.parseInt(request.getParameter("q_seq"));
 				
+				
 				QnaboardDTO dto = dao.clickByList(seq);
 
-				
+				request.setAttribute("writerID", dto.getM_id()); 
 				request.setAttribute("dto", dto);
 				request.getSession().setAttribute("loginID", loginID);
 				request.getRequestDispatcher("/qna/qnadetail.jsp").forward(request, response);
@@ -162,6 +170,18 @@ public class QnaBoardController extends HttpServlet {
 				if(stratNavi == 1) {needPrev = false;}
 				if(endNavi == pageTotalCount) {needNext = false;}
 				
+				 for (QnaboardDTO dto : checkList) {
+                     boolean hasAnswer = adao.hasAnswer(dto.getQ_seq());  
+                     dto.setHasAnswer(hasAnswer);
+
+                     if ("Y".equals(dto.getSecret())) {  
+                         if (loginID == null || !(loginID.equals(dto.getM_id()) || loginID.equals("admin"))) {                    
+                             dto.setTitle("비공개 질문입니다.");
+                             dto.setContents("비공개");
+                         }
+                     }
+                 }
+				
 				request.getSession().setAttribute("loginID", loginID);
 				request.setAttribute("checkList", checkList);
 				request.setAttribute("search", search);
@@ -170,16 +190,30 @@ public class QnaBoardController extends HttpServlet {
 				request.setAttribute("endNavi", endNavi);
 				request.setAttribute("needPrev", needPrev);
 				request.setAttribute("needNext", needNext);
-				
-				
-				
-				
-				
-				
+
 				request.getRequestDispatcher("/qna/searchListQna.jsp").forward(request, response); 
-				
-				
-			}
+
+			}else if (cmd.equals("/delete.qnaboard")) {
+				String loginID = (String) request.getSession().getAttribute("loginID");
+				int q_seq = Integer.parseInt(request.getParameter("q_seq"));
+                QnaboardDTO board = dao.getBoardBySeq(q_seq);
+               
+
+                dao.deleteBoard(q_seq);
+                response.sendRedirect("/qnalist.qnaboard");
+                
+            }else if(cmd.equals("/update.qnaboard")) {
+            	 int q_seq = Integer.parseInt(request.getParameter("q_seq"));
+            	 String contents = request.getParameter("contents");
+            	 int result = dao.updateContent(q_seq, contents);
+            	 
+            	    if (result > 0) {
+            	        response.getWriter().write("success");
+            	    } else {
+            	        response.getWriter().write("fail");
+            	    }
+            }
+			
 			
 				
 			

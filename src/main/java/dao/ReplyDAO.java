@@ -29,15 +29,7 @@ public class ReplyDAO {
 		return instance;
 	}
 	
-//	public int getReplyRecordTotalCount()throws Exception {
-//		String sql = "select count(*) from reply";
-//		try(Connection con = this.getConnection();
-//				PreparedStatement pstat = con.prepareStatement(sql);
-//				ResultSet rs = pstat.executeQuery();){
-//			rs.next();
-//			return rs.getInt(1);
-//		}
-//	}
+
 	
 	public List<ReplyDTO> selectALlReplies(int parent_seq)throws Exception{
 		String sql = "select * from reply where c_parent_seq= ?";
@@ -54,7 +46,7 @@ public class ReplyDAO {
 					int r_seq = rs.getInt("r_seq");
 					int c_parent_seq = rs.getInt("c_parent_seq");
 					String m_id = rs.getString("m_id");
-					String m_nickname = CBdao.getNickname(c_parent_seq);
+					String m_nickname = CBdao.getNickname(r_seq);
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					ReplyDTO dto = new ReplyDTO(r_seq, c_parent_seq, m_id, m_nickname, contents, write_date);
@@ -68,34 +60,6 @@ public class ReplyDAO {
 
 	}
 
-	
-	
-//	public List <ComboardReplyDTO> selectReplyFromTo(int start, int end, int c_seq)throws Exception{
-//		String sql = "select * from reply where r_seq between ? and ? and c_parent_seq = ?";
-//		try(Connection con = this.getConnection();
-//			PreparedStatement pstat = con.prepareStatement(sql);){
-//			pstat.setInt(1, start);
-//			pstat.setInt(2, end);
-//			pstat.setInt(3, c_seq);
-//			
-//			try(ResultSet rs = pstat.executeQuery();){
-//				List <ComboardReplyDTO> list = new ArrayList<>();
-//				ComBoardDAO CBdao = ComBoardDAO.getInstance();
-//				while(rs.next()) {
-//					int r_seq = rs.getInt("r_seq");
-//					int c_parent_seq = rs.getInt("c_parent_seq");
-//					String m_id = rs.getString("m_id");
-//					String m_nickname = CBdao.getNickname(c_parent_seq);
-//					String contents = rs.getString("contents");
-//					Timestamp write_date = rs.getTimestamp("write_date");
-//					ComboardReplyDTO dto = new ComboardReplyDTO(r_seq, c_parent_seq, m_id, m_nickname, contents, write_date);
-//					list.add(dto);
-//				}
-//				return list;
-//			}
-//		}
-//	}
-	
 	public void addReply(int c_parent_seq, String m_id, String contents)throws Exception {
 		String sql = "insert into reply (r_seq, c_parent_seq, m_id, contents, write_date) values (r_seq.nextval, ?, ?, ?, sysdate)";
 		try(Connection con = this.getConnection();

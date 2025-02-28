@@ -179,26 +179,22 @@ public class MembersDAO {
 	}
 
 
-	public int updateMyInformation(String name, String nickname, String phone, String email, String id)throws Exception {
-		String sql = "update members set name=?, m_nickname=?, phone=?, email=? where  m_id=?";
+	public int updateMyInformation(String nickname, String phone, String email, String id)throws Exception {
+		String sql = "update members set m_nickname=?, phone=?, email=? where  m_id=?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 
 
-			pstat.setString(1,name);
-			pstat.setString(2,nickname);
-			pstat.setString(3,phone);
-			pstat.setString(4,email);
-			pstat.setString(5,id.trim());
+			
+			pstat.setString(1,nickname);
+			pstat.setString(2,phone);
+			pstat.setString(3,email);
+			pstat.setString(4,id.trim());
 
 
 			int result = pstat.executeUpdate();
 
-			System.out.println("Executing SQL: " + sql);
-			System.out.println("Parameters: [name: " + name + ", nickname: " + nickname + ", phone: " + phone + ", email: " + email + ", id: " + id + "]");
-			System.out.println("PreparedStatement: " + pstat.toString());
-			System.out.println("Update 결과: " + result);
 			return result;
 		}
 	}
@@ -265,7 +261,7 @@ public class MembersDAO {
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
-			System.out.println(id);
+
 			
 			pstat.setString(1,id.trim());
 

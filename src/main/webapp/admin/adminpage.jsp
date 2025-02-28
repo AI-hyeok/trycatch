@@ -9,130 +9,114 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	crossorigin="anonymous"></script>
-<title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<title>관리자페이지</title>
 <style>
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
+
 
 body {
 	font-family: Arial, sans-serif;
 }
 
-.head {
-	height: 60px;
-	display: flex;
-	align-items: center;
-	font-size: 35px;
-	font-weight: bold;
-	padding-left: 20px;
-}
+.list li {
+        cursor: pointer;
+        text-align: center;
+        padding: 10px 0;
+        font-weight: bold;
+        font-size: 20px;
+    }
+.list li:hover{
+            font-size: 25px;
+        }
 
-.titlemypage {
-	font-size: 18px;
-	height: 60px;
-	display: flex;
-	align-items: end;
-	padding-bottom: 20px;
-	margin-left: 15px;
-}
+    .naviva div {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 20px;
+    }
 
-.naviva {
-	width: 100%;
-	height: 70px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: black;
-}
-
-.naviva>.mypage, .whole_ranking, .community, .QandA {
-	float: left;
-	width: 15%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	background: black;
-	font-size: 20px;
-}
-
-.first {
-	margin-top: 20px;
-	display: flex;
-	height: 800px;
-}
-
-.list {
-	width: 300px;
-	background-color: #d9d9d9;
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
-}
-
-li {
-	list-style: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 40px;
-}
-
-table {
-	margin: 0 auto;
-	margin-left: 20px;
-	width: 1000px;
-	height: 700px;
-	border-radius: 10px;
-	overflow-y: auto;
-	display: block;
-}
 
 th, td {
 	border: 1px solid black;
-	padding: 10px;
+	
 	text-align: center;
 }
 
-th {
-	height: 50px;
+th{
+    height: 60px;
+    width: 10%;
+}
+td{
+    height: 60px;
+}
+.clean{
+    width: 30%;
+}
+td button{
+    white-space: nowrap;
 }
 
-td {
-	height: 40px;
+.trycatch{
+		cursor:pointer;
+	}
+ span{
+       	font-weight: bold;
+       	color:white;
+       }
+       .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+        .listbox{
+        	opacity:0.9;
+        }
+    	.main{
+    		opacity:0.9;
+    		background-color:white;
+    		margin-left:1rem;
+    	}
+    	.headerLogoImg{
+	width: 200px;
+    height: auto;
 }
+
 </style>
 </head>
 <body>
+<img src="admin/images/BGI.jpg" class="background-img">
 	<div class="container">
-		<div class="head">
-			Try Catch
-			<p class="titlemypage">관리자페이지</p>
-		</div>
-		<div class="naviva">
-			<div class="mypage">관리자페이지</div>
-			<div class="whole_ranking">전체 랭킹</div>
-			<div class="community">커뮤니티</div>
-			<div class="QandA">Q&A</div>
-		</div>
-		<div class="first">
-			<div class="list">
-				<ul>
-					<li><a href="/list.admins">회원 관리</a></li>
+        <header class="d-flex align-items-center p-3">
+            <h1 class="h1 flex-grow-1 trycatch "><img class="headerLogoImg" src="admin/images/LogoW.png"></h1>
+            <span class="fs-4">관리자 페이지</span>
+        </header>
+
+		  <nav class="naviva d-flex justify-content-around bg-dark text-white p-3">
+            <div class="mypage">관리자페이지</div>
+            <div class="whole_ranking">전체 랭킹</div>
+            <div class="community">커뮤니티</div>
+            <div class="QandA">Q&A</div>
+        </nav>
+
+		 <div class="row mt-4">
+            <aside class="col-md-3 list bg-light p-3 rounded listbox">
+                <ul class="list-unstyled">
+					<li class="members">회원 관리</li>
 					<hr>
-					<li>자유게시판 관리</li>
+					<li class="blacklist">블랙리스트</li>
 					<hr>
-					<li>Q&A게시판 관리</li>
-					<hr>
-					<li><a href="/blacklist.admins">블랙리스트</a></li>
-					<hr>
-					<li><a href="/dashboard.admins">대시보드</a></li>
+					<li class="dashboard">대시보드</li>
 					<hr>
 				</ul>
-			</div>
+			</aside>
+
+            <main class="p-4 col-md-8 rounded main">
+                <h3>회원목록</h3>
+                <hr>
+                <div class="table-responsive">
 			<table align="center">
 				<tr>
 					<th>회원ID</th>
@@ -152,16 +136,52 @@ td {
 						<td>${i.warning_count}</td>
 						<td>${i.signup_date}</td>
 						<td>
-							<button onclick="deleteMember('${i.m_id}')">삭제</button>
-							<button onclick="warningMember('${i.m_id}')">경고</button>
-							<button onclick="blackMember('${i.m_id}')">BEN</button>
+						<div class="d-flex justify-content-around gap-1">
+							<button class="btn btn-secondary" onclick="deleteMember('${i.m_id}')">삭제</button>
+							<button class="btn btn-secondary" onclick="warningMember('${i.m_id}')">경고</button>
+							<button class="btn btn-secondary" onclick="blackMember('${i.m_id}')">BEN</button>
+						</div>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
+            <hr>
+            </div>
+            </main>
 		</div>
 	</div>
 	<script>
+	  $(".trycatch").on("click", function () {
+          window.location.href = "/index.jsp";
+      })//index로가기
+
+    $(".mypage").on("click",function(){
+      window.location.href="/mypage.mypages";
+   })//마이페이지로가기
+   
+   $(".whole_ranking").on("click",function(){
+      window.location.href="/ranklist.games";
+   })//전체랭킹가기
+   
+   $(".community").on("click",function(){
+      window.location.href="/list.comboard";
+   })//자유게시판가기
+   
+   $(".QandA").on("click",function(){
+      window.location.href="/qnalist.qnaboard";
+   })//qna게시판가기   
+
+
+   $(".members").on("click",function(){
+        location.href="/list.admins";
+   })//회원관리
+   $(".blacklist").on("click",function(){
+        location.href="/blacklist.admins";
+   })//블랙리스트
+   $(".dashboard").on("click",function(){
+        location. href="/dashboard.admins";
+   })//대시보드
+
 	function deleteMember(id) {
 	    if(confirm("정말로 삭제하시겠습니까?")) {
 	        location.href = '/delete.admins?m_id=' + id;
@@ -174,6 +194,10 @@ td {
 		 location.href = "/black.admins?m_id="+ id;
 	}
 	
+
+
 </script>
 </body>
 </html>
+
+

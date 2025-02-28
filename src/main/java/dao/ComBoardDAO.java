@@ -55,7 +55,7 @@ public class ComBoardDAO {
 					
 					int c_seq = rs.getInt("c_seq");
 					String m_id = rs.getString("m_id");
-					String m_nickname = this.getNickname(c_seq);
+					String m_nickname = this.getBoardNickname(c_seq);
 					String title = rs.getString("title");
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
@@ -65,6 +65,7 @@ public class ComBoardDAO {
 					String timeLabel = getTimeLabel(write_date);
 					ComBoardDTO dto = new ComBoardDTO(c_seq, m_id, m_nickname, title, contents, write_date, view_count, notice);
 					dto.setTimeLabel(timeLabel);
+					
 					list.add(dto);
 				}
 				return list;
@@ -125,7 +126,24 @@ public class ComBoardDAO {
 	}
 	
 	
-	public String getNickname(int c_seq)throws Exception {
+	public String getNickname(int r_seq)throws Exception {
+		String sql = "select m.m_nickname from members m join reply r on m.m_id=r.m_id where r_seq = ?";
+		try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1, r_seq);
+			try(ResultSet rs = pstat.executeQuery();){
+				if(rs.next()) {
+					String nickname = rs.getString("m_nickname");
+					return nickname;
+				}else {
+					return "null";
+				}
+				
+			}
+		}
+	}
+	
+	public String getBoardNickname(int c_seq)throws Exception {
 		String sql = "select m.m_nickname from members m join common_board cb on m.m_id=cb.m_id where c_seq = ?";
 		try(Connection con = this.getConnection();
 			PreparedStatement pstat = con.prepareStatement(sql);){
@@ -159,7 +177,9 @@ public class ComBoardDAO {
 					int view_count = rs.getInt("view_count");
 					String notice = rs.getString("notice");
 					
+					String timeLabel = getTimeLabel(write_date);
 					ComBoardDTO dto = new ComBoardDTO(seq, m_id, m_nickname, title, contents, write_date, view_count, notice);
+					dto.setTimeLabel(timeLabel);
 					noticeList.add(dto);
 
 				}
@@ -191,33 +211,35 @@ public class ComBoardDAO {
 		}
 		
 	
-		public List<ComBoardDTO> searchByInputText(String inputSearch)throws Exception{
-			String sql = "select * from common_board where title like ? or contents like ?";
+		public List<ComBoardDTO> searchByInputText(String inputSearch, int start, int end)throws Exception{
+			String sql = "SELECT * FROM (SELECT common_board.*,row_number() OVER (ORDER BY c_seq DESC) AS rnum FROM common_board WHERE title LIKE ? OR contents LIKE ?)WHERE rnum BETWEEN ? AND ?";
 			try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);){
+					PreparedStatement pstat = con.prepareStatement(sql);){
+				
 				pstat.setString(1, "%" + inputSearch + "%");
 				pstat.setString(2, "%" + inputSearch + "%");
-				
-				List <ComBoardDTO> resultList = new ArrayList<>();
+				pstat.setInt(3, start);
+				pstat.setInt(4, end);
+				List <ComBoardDTO> list = new ArrayList<>();
 				
 				try(ResultSet rs = pstat.executeQuery();){
+					
 					while(rs.next()) {
-						int seq = rs.getInt("c_seq");
-						String m_id = rs.getString("m_id"); 
-						String m_nickname = this.getNickname(seq);
+						int c_seq = rs.getInt("c_seq");
+						String m_id = rs.getString("m_id");
+						String m_nickname = this.getNickname(c_seq);
 						String title = rs.getString("title");
 						String contents = rs.getString("contents");
 						Timestamp write_date = rs.getTimestamp("write_date");
 						int view_count = rs.getInt("view_count");
 						String notice = rs.getString("notice");
-						
-						ComBoardDTO dto = new ComBoardDTO(seq, m_id, m_nickname, title, contents, write_date, view_count, notice);
-						resultList.add(dto);
+						String timeLabel = getTimeLabel(write_date);
+						ComBoardDTO dto = new ComBoardDTO(c_seq, m_id, m_nickname, title, contents, write_date, view_count, notice);
+						dto.setTimeLabel(timeLabel);
+						list.add(dto);
 					}
-					return resultList;
+					return list;
 				}
-				
-				
 			}
 		}
 
@@ -243,7 +265,10 @@ public class ComBoardDAO {
 				int viewcount = rs.getInt("view_count");				
 				String notice = rs.getString("notice");
 				
+				String timeLabel = getTimeLabel(write_date);
+				
 				ComBoardDTO dto = new ComBoardDTO(c_seq,m_id,nickname,title,contents,write_date,viewcount,notice);
+				dto.setTimeLabel(timeLabel);
 				list.add(dto);
 				
 			
@@ -264,7 +289,7 @@ public class ComBoardDAO {
 		if (diff < 3600) return "1시간 이내";
 
 
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return sdf.format(new Date(writeTime));
 	}
 	
@@ -277,5 +302,51 @@ public class ComBoardDAO {
            return rs.getInt(1);
         }
      }
+	
+	public int getSearchRecordTotalCount(String inputSearch)throws Exception {
+		String sql = "select count(*) from common_board where title like ? or contents like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, "%" + inputSearch + "%");
+			pstat.setString(2, "%" + inputSearch + "%");
+			
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);
+			}
+			
+			
+		}
+	}
+	
+	public int getNoticeRecordTotalCount()throws Exception {
+		String sql = "select count(*) from common_board where notice = 'Y'";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			
+			try(ResultSet rs = pstat.executeQuery();){
+				rs.next();
+				return rs.getInt(1);
+			}
+			
+			
+		}
+	}
+	
+	public int deleteComboardById(String id)throws Exception {
+	      String sql ="delete from common_board where m_id=?";
+	      
+	      try(Connection con = this.getConnection();
+	            PreparedStatement pstat = con.prepareStatement(sql);){
+
+
+	         pstat.setString(1,id);
+	      
+	         int result = pstat.executeUpdate();
+
+	         return result;
+	      }
+	      
+	   }
 	
 }

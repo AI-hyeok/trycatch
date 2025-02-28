@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ComBoardDAO;
+import dao.GamescoreDAO;
 import dao.MembersDAO;
 import dao.QnaBoardDAO;
 import dto.ComBoardDTO;
@@ -29,7 +30,8 @@ public class MypageController extends HttpServlet {
 		MembersDAO dao = MembersDAO.getInstance();
 		ComBoardDAO comdao = ComBoardDAO.getInstance();
 		QnaBoardDAO qnadao = QnaBoardDAO.getInstance();
-
+		GamescoreDAO gamescoredao = GamescoreDAO.getInstance();
+		
 		try {
 
 			if(cmd.equals("/mypage.mypages")) { //마이페이지로 갈때 
@@ -54,29 +56,38 @@ public class MypageController extends HttpServlet {
 
 			}
 			else if(cmd.equals("/updateMyInformation.mypages")) {
-				//String loginID = (String)request.getSession().getAttribute("loginID");
 				//dao.showMembersById(loginID); //session에있는 Id로 members 가져오기
-
-				String name = request.getParameter("name");
+				
+				String loginID = (String)request.getSession().getAttribute("loginID");
 				String nickname = request.getParameter("nickname");
 				String phone = request.getParameter("phone");
 				String email = request.getParameter("email");
-				String id = request.getParameter("id"); //session에 있는 loginID
+			
 
-				dao.updateMyInformation(name,nickname,phone,email,id);
+				dao.updateMyInformation(nickname,phone,email,loginID);
 
 				response.sendRedirect("/myupdate.mypages");
 
 
 
 			}
+			
+			else if(cmd.equals("/checkNickname.mypages")) {
+				
+				String nickname = request.getParameter("nickname");
+				
+				boolean result = dao.nicknameCheck(nickname);
+				
+				response.getWriter().append(String.valueOf(result));
+				
+			}
 
 			else if(cmd.equals("/myboard.mypages")) {
 				
 				String loginID = (String)request.getSession().getAttribute("loginID");
 
-				List<ComBoardDTO> comlist = comdao.showMyComBoard(loginID); //sql m_id를 닉네임으로 바꿔야함
-				List<QnaboardDTO> qnalist = qnadao.showMyQnaBoard(loginID); //sql m_id를 닉네임으로 바꿔야함
+				List<ComBoardDTO> comlist = comdao.showMyComBoard(loginID);
+				List<QnaboardDTO> qnalist = qnadao.showMyQnaBoard(loginID);
 
 				request.setAttribute("comlist", comlist);
 				request.setAttribute("qnalist", qnalist);
@@ -107,6 +118,19 @@ public class MypageController extends HttpServlet {
 				request.getRequestDispatcher("/mypage/myrank.jsp").forward(request, response);
 
 
+			}
+			
+			else if(cmd.equals("/delete.mypages")) {
+				String loginID = (String)request.getSession().getAttribute("loginID");
+				String password = request.getParameter("password");
+				
+				dao.deleteMember(loginID, password);
+				comdao.deleteComboardById(loginID);
+				qnadao.deleteQnaboardById(loginID);
+				gamescoredao.deleteGameScore(loginID);
+				
+				request.getSession().invalidate();
+				response.sendRedirect("/index.jsp");	
 			}
 
 		}catch(Exception e) {

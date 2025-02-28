@@ -4,13 +4,27 @@ import java.sql.Timestamp;
 
 public class QnaboardDTO {
 	private int q_seq;
+	private String m_id;
 	private String m_nickname;
 	private String title;
 	private String contents;
 	private Timestamp write_date;
 	private String secret;
 	private boolean hasAnswer;
+	private String timeLabel;
 	
+	public String getM_id() {
+		return m_id;
+	}
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+	public String getTimeLabel() {
+		return timeLabel;
+	}
+	public void setTimeLabel(String timeLabel) {
+		this.timeLabel = timeLabel;
+	}
 	public boolean isHasAnswer() {
 		return hasAnswer;
 	}

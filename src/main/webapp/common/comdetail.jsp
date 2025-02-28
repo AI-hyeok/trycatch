@@ -6,234 +6,555 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BoardDetail</title>
 <style>
+.background-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .container {
-	width: 90%;
-	margin: auto;
+    width: 90%;
+    margin: auto;
 }
 
 .navi {
-	width: 100%;
-	height: 100px;
-	margin-bottom: 50px;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 50px;
 }
 
-.navi>div {
-	float: left;
-	width: 20%;
-	height: 100%;
+.navi > div {
+    height: 100%;
 }
 
 .title {
-	width: 100%;
-	height: 80px;
-	font-size: 35px;
-	padding-left: 30px;
-	padding-top: 30px;
+    height: 80px;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
-.title>div {
-	float: left;
-	font-weight: bold;
-	width: 50%;
+.title > div {
+    font-weight: bold;
+}
+
+
+
+/* 수정된 replyList 스타일 */
+#replyList {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background-color: rgba(255, 255, 255, 0.9); /* 투명한 하얀색 배경 */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+}
+
+#replyList th,
+#replyList td {
+    padding: 15px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+}
+
+#replyList th {
+    background-color: rgba(78, 51, 128, 0.7); /* 어두운 보라색 */
+    color: white;
+    border-bottom: 2px solid #ddd;
+}
+
+#replyList td {
+    background-color: rgba(245, 245, 245, 0.7); /* 연한 회색 배경 */
+    border-bottom: 1px solid #ddd;
+    color: #333; /* 어두운 회색 텍스트 */
+}
+
+#replyList tr:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* 마우스 오버 시 배경색 변경 */
+}
+
+#replyList .rEditable {
+    background-color: rgba(255, 255, 255, 0.7); /* 댓글 수정시 배경 */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 13px;
+    color: #555; /* 어두운 회색 글씨 */
+}
+
+#updateBtnArea {
+    height: 100%;
+}
+
+#frm {
+    height: 100%;
 }
 
 .btn {
-	width: 30%;
-	display: flex;
-	justify-content: end;
-	align-items: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+#delBtn,
+#updateBtn {
+    background-color: rgba(78, 51, 128, 0.6);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    height: 50%;
+    width: 10%;
+    margin: 5px;
+}
+
+
+.updateCancleBtn,
+.updateDoneBtn{
+    background-color: rgba(78, 51, 128, 0.6); /* 버튼 배경색 */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    height: 50%;
+    width: 10%;
+    margin: 5px;
+}
+
+
+#backToListBtn {
+    background-color: rgba(78, 51, 128, 0.6); /* 버튼 배경색 */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    height: 80%;
+    width: 33%;
+}
+
+#addReplyBtn,
+#addBtnNull {
+    background-color: rgba(78, 51, 128, 0.6); /* 버튼 배경색 */
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    width: 10%;
+}
+
+.updateReplyBtn,
+.deleteReplyBtn,
+.upCancel{
+    background-color: rgba(78, 51, 128, 0.6); /* 버튼 배경색 */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    width: 40%;
+    margin: 5px;
+}
+.upDone {
+    background-color: rgba(78, 51, 128, 0.6); /* 버튼 배경색 */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    margin: 5px;
+    width:60%;
+}
+#updateBtn:hover,
+.updateCancleBtn:hover,
+.updateDoneBtn:hover,
+#backToListBtn:hover,
+#addReplyBtn:hover,
+#addBtnNull:hover,
+.updateReplyBtn:hover,
+.deleteReplyBtn:hover,
+.upCancel:hover,
+.upDone:hover {
+    background-color: rgba(78, 51, 128, 0.8); /* 버튼 호버 효과 */
+    transition: background-color 0.3s ease;
+}
+
+.addReply textarea {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    background-color: rgba(255, 255, 255, 0.9); /* 댓글 입력창 투명한 하얀색 */
+    width: 100%;
+}
+
+.addReply button {
+    background-color: rgba(78, 51, 128, 0.6);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.addReply button:hover {
+    background-color: rgba(78, 51, 128, 0.8);
+    transition: background-color 0.3s ease;
+}
+
+.pageNavi .paging {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.7); /* 페이지 네비 버튼 */
+}
+
+.pageNavi .paging:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .contents {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 60px;
+    background-color: rgba(255, 255, 255, 0.861);
+    border-top: 20px solid rgba(78, 51, 128, 0.621);
+    padding-bottom: 0px;
+    border-bottom: 5px solid rgba(109, 77, 168, 0.621);
 }
 
-.boardInfo {
-	width: 100%;
-	height: 50px;
+.titleDetail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
 }
 
 table {
-	width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
-tr {
-	height: 50px;
-	width: 100%;
+#comboardC_seq {
+    height: 100%;
+}
+
+.files {
+    margin: 10px;
+    height: 50px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.addFileTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .boardContents {
-	width: 100%;
-	height: 600px;
-	padding: 50px;
+    padding: 20px;
+    padding-bottom: 0px;
 }
 
-.boardContents>div {
-	width: 100%;
-	height: 100%;
-	border: 1px solid black;
+.downloadFile {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+#comboardContents {
+    border: 1px solid black;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.861);
+    min-height: 500px;
+    margin-top: 5px;
+    border: none;
 }
 
 .addReply {
-	width: 100%;
-	padding: 30px;
-	height: 180px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: rgb(224, 224, 224);
-}
-
-.addReply>div {
-	float: left;
-}
-
-.inputReplyText {
-	width: 90%;
-	height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    padding: 15px;
+    padding-top: 0px;
 }
 
 .addReplyBtn {
-	width: 10%;
-	height: 80%;
-	padding: 0px;
-	margin: 0px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 5px;
+    padding-right: 30px;
 }
 
 .addBtn {
-	width: 100%;
-	height: 100%;
-	padding: 0px;
-	margin: 0px;
+    padding: 10px 20px;
+    margin-top: 10px;
 }
 
 .replyList {
-	width: 100%;
-	height: 600px;
-	padding: 50px;
-}
-
-.replys {
-	width: 100%;
-	height: 100%;
-	background-color: rgb(224, 224, 224);
+    padding: 20px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    border-top: 5px solid rgba(109, 77, 168, 0.621);
+    background-color: rgba(255, 255, 255, 0.861);
+    border-bottom: 20px solid rgba(78, 51, 128, 0.621);
 }
 
 .pageNavi {
-	width: 100%;
-	height: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
-.footer {
-	width: 100%;
-	height: 400px;
-	background-color: black;
-	color: white;
-	margin-top: 50px;
-}
-
-button {
-	margin-left: 10px;
-	border-radius: 0px;
-	background-color: white;
-	font-size: 18px;
-	padding: 5px;
-	width: 200px;
+hr {
+    margin: 0px;
 }
 
 textarea {
-	width: 100%;
-	height: 100%;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
 }
 
-#replyList{
-width:100%;
-height:100%;
+.replyList {
+    padding: 50px;
 }
+
+.boardInfo {
+    height: 60px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 3px solid rgba(109, 77, 168, 0.621);
+}
+
+.footer {
+    margin-top: 100px;
+    height: 300px;
+}
+
+.footer > div {
+    border: none;
+}
+
+.logoImg {
+    width: 150px;
+    height: auto;
+}
+
+.footerTexts {
+    border: none;
+    color: lightgray;
+    padding-bottom: 0px;
+    padding-top: 30px;
+    line-height: 18px;
+    margin-bottom: 30px;
+}
+
+.paging {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+}
+
+.backBtn {
+    padding-right: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.paging:hover {
+    background-color: rgba(255, 255, 255, 0.761);
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+input[type="button"] {
+    cursor: pointer;
+}
+
+.headerLogoImg {
+    width: 200px;
+    height: auto;
+}
+
+.listBtn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+#btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 30px;
+}
+
+#comboardTitle {
+    text-align: left;
+}
+
+.inputReplyText {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.boardTitle > th {
+    height: 100%;
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    text-align: center;
+}
+
+.r_seq {
+    vertical-align: middle !important;
+}
+
+#updateBtnArea {
+    height: 100%;
+}
+
+.rEditable {
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: start; /* 세로 중앙 정렬 */
+    text-align: center;
+}
+
+.replyContents > div {
+    display: flex;
+    align-items: start;
+    text-align: center;
+}
+
+.replyContents {
+    width: 70%;
+    padding:10px;
+}
+
+.replyTr{
+background-color:rgba(255, 255, 255, 0.5);
+}
+
+
 </style>
-<script>
-	$(function() {
-		$.ajax({
-			url:"/replyList.reply",
-			data:{c_parent_seq:"${DTO.c_seq}"}
-		}).done(function(resp) {
-					resp = JSON.parse(resp);
-					let contentHTML = '';
 
-					resp.forEach(function(dtoList) {
-						contentHTML += "<tr class='replyTr'>" + 
-										"<td class='r_seq'>" + dtoList.r_seq + "</td>" +
-										"<td>" + dtoList.m_nickname + "</td>" +
-										"<td class='rEditable'>" + dtoList.contents + "</td>" + 
-										"<td>" + dtoList.write_date + "</td>";
-										
-						
-						if (dtoList.m_id == "${loginID}") {
-							contentHTML += "<td id='updateBtnArea'>" + 
-											"<button type='button' class='updateReplyBtn'>수정</button></td>" +
-											"<td><button type='button' class='deleteReplyBtn' data-rseq='" + dtoList.r_seq + "'>삭제</button></td></tr>";
-						}
-					});
-					
-					$("#replyList").html(contentHTML); 
-					
-					$(".deleteReplyBtn").on("click", function(){
-						let result = confirm("댓글을 삭제하시겠습니까?")
-						if(result){
-							let r_seq = $(this).closest("tr").find(".r_seq").text(); 
-							location.href="/deleteReply.reply?c_seq=${DTO.c_seq}&r_seq=" + r_seq;
-							
-						}else{
-							location.back();
-						}
-					});
-					
-				});
-			});
+
+<script>
+$(function() {
+    $.ajax({
+       url:"/replyList.reply",
+       data:{c_parent_seq:"${DTO.c_seq}"}
+    }).done(function(resp) {
+             resp = JSON.parse(resp);
+             let contentHTML = '';
+             
+             if(resp.length == 0){
+                $(".replyList").css("display", "none");
+             }else{
+                resp.forEach(function(dtoList) {
+                contentHTML += "<tr class='replyTr'>" + 
+                			"<td><div class='r_seq'>"+dtoList.r_seq +
+                            "<td class='replyContents'>"+ dtoList.m_nickname +
+                            "</div><div class='col-12 rEditable'>" + dtoList.contents + "</div>" + 
+                            "</div><div>&nbsp작성일:"+ dtoList.write_date + "</div>" +
+                            "</td>";
+
+
+                            
+                
+                if (dtoList.m_id == "${loginID}") {
+                   contentHTML += "<td id='updateBtnArea'>" + 
+                               "<button type='button' class='updateReplyBtn'>수정</button>" +
+                               "<button type='button' class='deleteReplyBtn' data-rseq='" + dtoList.r_seq + "'>삭제</button></td></tr>";
+                }
+             });
+             
+             $("#replyList").html(contentHTML); 
+             
+             $(".deleteReplyBtn").on("click", function(){
+                let result = confirm("댓글을 삭제하시겠습니까?")
+                if(result){
+                   let r_seq = $(this).closest("tr").find(".r_seq").text(); 
+                   location.href="/deleteReply.reply?c_seq=${DTO.c_seq}&r_seq=" + r_seq;
+                   
+                }else{
+                   location.back();
+                }
+             });
+             }
+
+             
+             
+          });
+       });
 </script>
 </head>
 <body>
-	<div class="container">
-		<div class="navi">
-			<div>
-				<img src="TrycatchLogo.png" style="width: 100%; height: 100%;">
-			</div>
-			<div>마이페이지</div>
-			<div>전체 랭킹</div>
-			<div>커뮤니티</div>
-			<div>Q&A</div>
-		</div>
-		<div class="title">
-			<div>자유게시판</div>
-			<div class="btn">
+<img class="background-img" src="qna/images/BGI.jpg">
+	<div class="row container">
+		<header class="d-flex align-items-center p-3">
+            		<h1 class="h1 flex-grow-1 trycatch ">
+            		<img class="headerLogoImg" src="qna/images/LogoW.png">
+            		</h1>
+        	</header>
+
+		<div class="row title">
+			<div class="col-12 titleDetail">자유게시판</div>
+
+			
 				<form action="/update.comboard" method="post" id="frm">
 					<input type="hidden" name="c_seq" id="hdC_seq" value="${DTO.c_seq}">
-					<input type="hidden" name="title" id="hdTitle"> <input
-						type="hidden" name="contents" id="hdContent">
+					<input type="hidden" name="title" id="hdTitle"> 
+					<input type="hidden" name="contents" id="hdContent">
+					<div class="row btn">
 					<c:choose>
 						<c:when test="${DTO.m_id == loginID}">
 							<button id="updateBtn" type="button">수정</button>
@@ -244,6 +565,7 @@ height:100%;
 			            		
 			            		
 			            		let updateDoneBtn = $("<button>");
+						updateDoneBtn.addClass("updateDoneBtn");
 			            		updateDoneBtn.html("수정완료");
 			            		
 			            		updateDoneBtn.on("click", function(){
@@ -254,6 +576,7 @@ height:100%;
 			            	    });
 			            		
 			            		let updateCancleBtn = $("<button>");
+						updateCancleBtn.addClass("updateCancleBtn");
 			            		updateCancleBtn.attr("type","button");
 			            		updateCancleBtn.html("수정 취소");
 			            		updateCancleBtn.on("click", function(){
@@ -261,9 +584,9 @@ height:100%;
 			            		});
 			            	
 				            	$(".btn").append(updateDoneBtn);
-								$(".btn").append(updateCancleBtn);
+						$(".btn").append(updateCancleBtn);
 								
-								$('#comboardContents').summernote({
+						$('#comboardContents').summernote({
 		    	        	        
 			     	        	       // 에디터 크기 설정
 			     	        	       height: 800,
@@ -307,7 +630,7 @@ height:100%;
 				            });
 				            </script>
 							<button id="delBtn" type="button">삭제</button>
-										<script>
+						<script>
 								$("#delBtn").on("click",function(){
 									let result = confirm("게시물을 삭제하시겠습니까?")
 									if(result){
@@ -319,6 +642,7 @@ height:100%;
 							</script>
 						</c:when>
 					</c:choose>
+				</div>
 				</form>
 
 				<script>
@@ -330,6 +654,7 @@ height:100%;
 				if(parentTr.find(".replyDoneBtn").length === 0){
 					let replyDoneBtn = $("<button>");
 					replyDoneBtn.attr("type", "button");
+					replyDoneBtn.addClass("upDone")
 					replyDoneBtn.html("수정완료");
 									
 									
@@ -370,81 +695,83 @@ height:100%;
 				}
 			});
 				</script>
+				</div>
 
-				<button id="backToListBtn" type="button">목록으로 돌아가기</button>
-				<script>
-				$("#backToListBtn").on("click", function(){
-					let last_cpage = sessionStorage.getItem("last_cpage");
-					if(last_cpage == null){
-						last_cpage = 1;
-					}
-					location.href="/list.comboard?cpage="+last_cpage; 
-				})
-			</script>
-			</div>
-		</div>
-		<hr style="border: 5px solid black;">
-		<div class="contents">
-			<div class="boardInfo">
-				<table>
-					<colgroup>
-						<col style="width: 10%;">
-						<col style="width: 40%;">
-						<col style="width: 20%;">
-						<col style="width: 20%;">
-						<col style="width: 10%;">
-					</colgroup>
-					<tr>
-						<th id="comboardC_seq">${DTO.c_seq}</th>
-						<th id="comboardTitle" class="editable">${DTO.title}</th>
-						<th>${DTO.m_nickname}</th>
-						<th>${DTO.write_date}</th>
-						<th>${DTO.view_count}</th>
+				
+		
+		<div class="row contents">
+			<div class="row boardInfo">
+				<table class="col-12">
+					<tr class="row boardTitle" style="margin-bottom:5px;">
+						<th class="col-2 d-none d-md-block col-md-2" id="comboardC_seq">${DTO.c_seq}</th>
+						<th class="col-7 col-md-7" id="comboardTitle" class="editable">${DTO.title}</th>
+						<th class="col-3 col-md-3">${DTO.m_nickname}</th>
 					</tr>
 				</table>
 			</div>
-			<hr style="border: 2px solid black; width: 100%;">
-			<table>
-				<colgroup>
-					<col style="width: 30%;">
-					<col style="width: 70%;">
-				</colgroup>
-				<tr style="padding-left: 30px; padding-top: 30px;">
-					<th colspan="1">첨부파일</th>
-					<th>
-					<c:forEach var="i" items="${Files}">
-					<a href="/download.files?filename=${i.sysName}&oriname=${i.oriName}">${i.oriName}</a><br>
-					</c:forEach>
-					</th>
-				</tr>
-			</table>
-			<div class="boardContents">
+			
+
+
+
+
+
+
+			<div class="row boardContents">
+				<div class="col-12">
+					<div class="col-6" style="float:left; font-size:13px;">작성일:${DTO.write_date}</div>
+					<div class="col-6" style="float:left;  font-size:13px; text-align:right;">조회수:${DTO.view_count}</div>
+				</div>
+
 				<div id="comboardContents" class="editable">${DTO.contents}</div>
 
 			</div>
-			<div style="width: 100%; height: 100%; padding: 50px;">
-<c:choose>
+
+
+			<div class="row files">
+				<div class="row fileList">
+					<div class="col-2 addFileTitle">첨부파일</div>
+					<div class="col-7 downloadFile">
+					<c:forEach var="i" items="${Files}">
+					<a href="/download.files?filename=${i.sysName}&oriname=${i.oriName}">${i.oriName}</a><br>
+					</c:forEach>
+					</div>
+					<div class="col-3 listBtn">
+						<button id="backToListBtn" type="button">목록</button>
+						<script>
+							$("#backToListBtn").on("click", function(){
+								let last_cpage = sessionStorage.getItem("last_cpage");
+								if(last_cpage == null){
+									last_cpage = 1;
+								}
+								location.href="/list.comboard?cpage="+last_cpage; 
+							})
+						</script>
+					</div>
+				</div>
+			</div>
+
+			<c:choose>
 			<c:when test="${loginID != null}">
 				<form action="/insertReply.reply" method="post">
 					<input type="hidden" name="c_seq" id="hdC_seq" value="${DTO.c_seq}">
 					<input type="hidden" name="m_id" id="hdM_id" value="${loginID}">
-					<div class="addReply">
+					<div class="row addReply">
 						<div class="inputReplyText">
-							<textarea id="replyText" name="contents" style="resize: none;" placeholder="댓글을 입력해주세요"></textarea>
+							<textarea class="col-12 d-none d-md-block col-md-12" id="replyText" name="contents" style="resize: none;" placeholder="댓글을 입력해주세요"></textarea>
 						</div>
-						<div class="addReplyBtn">
-							<button id="addReplyBtn" class="addBtn">등록</button>
+						<div class="col-12 addReplyBtn">
+							<button class="col-12 d-none d-md-block col-md-12" id="addReplyBtn" class="addBtn">댓글 등록</button>
 						</div>
 					</div>
 				</form>
 				</c:when>
 				<c:otherwise>
-				<div class="addReply">
+				<div class="row addReply">
 						<div class="inputReplyText">
-							<textarea name="contents" style="resize: none;" placeholder="댓글을 입력해주세요"></textarea>
+							<textarea class="col-12 d-none d-md-block col-md-12" name="contents" style="resize: none;" placeholder="댓글을 입력해주세요"></textarea>
 						</div>
-						<div class="addReplyBtn">
-							<button id="addBtnNull" type="button">등록</button>
+						<div class="col-12 addReplyBtn">
+							<button class="col-12 d-none d-md-block col-md-12" id="addBtnNull" type="button">댓글 등록</button>
 						</div>
 					</div>
 			        <script>
@@ -455,31 +782,28 @@ height:100%;
 			    </c:otherwise>
 				</c:choose>
 			</div>
-			<div class="replyList">
-				<div id="replyListDiv" class="replys">
-					<table id="replyList"></table>
+
+
+
+			<div class="row replyList">
+				<div id="replyListDiv" class="col-12 replys">
+					<table class="col-12" id="replyList"></table>
 				</div>
-				<div class="pageNavi">
-					<c:if test="${replyneedPrev}">
-						<span class="paging" page="${replystartNavi-1}">< </span>
-					</c:if>
-					<c:forEach var="i" begin="${replystartNavi}" end="${replyendNavi}">
-						<span class="paging" page="${i}">${i}&nbsp</span>
-					</c:forEach>
-					<c:if test="${replyneedNext}">
-						<span class="paging" page="${replyendNavi+1}">&nbsp></span>
-					</c:if>
+
+			</div>
+
+		<div class="row footer">
+			<div class="col-12 footerContents">
+				<div class="col-12 footerTexts">
+					이메일:trycatch@gmail.com|채팅 : 카카오톡 채널(아이디 트라이캐치)<br> <br>충청남도
+					천안시 서북구 두정중10길|전화번호 : 1633-122001<br> <br>© Try catch
+					Korea Corporation All Rights Reserved.
 				</div>
-				<script>
-					$(".paging").on("click", function(){
-						let pageNum = $(this).attr("page");
-						sessionStorage.setItem("last_cpage", pageNum);
-						location.href="/replyList.reply?cpage="+pageNum;
-					})
-				</script>
+				<div class="col-12 logoText">
+				<img class="logoImg" src="qna/images/LogoW.png">
+				</div>
 			</div>
 		</div>
-		<div class="footer">Footer</div>
 	</div>
 </body>
 </html>

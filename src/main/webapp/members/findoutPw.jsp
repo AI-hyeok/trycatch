@@ -13,7 +13,14 @@
         margin: 0;
         padding: 0;
     }
-
+	
+	html, body {
+ 		height: 100vh;
+    	background-image: url('images/findID2.jpg'); 
+    	background-size: cover; 
+    	background-position: center;
+    	background-repeat: no-repeat;
+}
     .container {
         width: 100%;
         max-width: 600px;
@@ -22,7 +29,7 @@
     }
 
     .logo img {
-        height: 50px;
+        height: 100px;
         margin: 20px 0;
     }
 
@@ -43,6 +50,7 @@
         font-size: 25px;
         font-weight: bold;
         margin-bottom: 10px;
+        color:white;
     }
 
     hr {
@@ -52,15 +60,17 @@
     }
 
     .contents {
-        border: 1px solid black;
+        border: 1px solid white;
         padding: 30px;
         border-radius: 10px;
         background-color: #f9f9f9;
+        background-color:rgba(255,255,255,0.1);
+        color: white;
     }
 
     .guide {
         font-size: 14px;
-        color: #555;
+        color: white;
         margin-bottom: 20px;
     }
 
@@ -80,10 +90,13 @@
         width: 65%;
         height: 40px;
         padding: 5px;
-        border: 1px solid #ccc;
+        border: 1px solid white;
         border-radius: 5px;
         text-align: center;
+        background: rgba(255, 255, 255, 0.2);
+        color:white;
     }
+
 
     .form-group button {
         width: 100%;
@@ -129,6 +142,20 @@
     .btn button:hover {
         background-color: rgb(70, 70, 70);
     }
+    input {
+		width: 100%;
+		height: 90%;
+		border: 1px solid #ccc; 
+    	border-radius: 5px;
+    	background-color: rgba(255, 255, 255, 0.1); 
+    	color: white; 
+	}
+	input:focus {
+    	outline: none;
+    	border-color: #007bff; 
+    	background-color: rgba(255, 255, 255, 0.1); 
+	}
+   
 </style>
 </head>
 <body>
@@ -138,7 +165,7 @@
 <form action="/findPw.members" method="post">
     <div class="container">
         <div class="logo">
-<!--              <img src="LogoB.png">  -->
+             <img src="images/LogoW.png">  
         </div>
 
         <div class="header">
@@ -203,9 +230,7 @@
 			   alert("잘못된 값입니다.");
 		   }
 	   });
-	   
-	   
-	   
+ 
    })
 </script>
 

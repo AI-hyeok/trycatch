@@ -17,7 +17,13 @@
 	margin: 0;
 	padding: 0;
 }
-
+html, body {
+    background-image: url('images/findID2.jpg'); /* 배경 이미지 경로 */
+    background-size: cover; /* 이미지가 화면을 꽉 채우도록 조정 */
+    background-position: center; /* 중앙 정렬 */
+    background-repeat: no-repeat; /* 반복 방지 */
+    background-attachment: fixed;
+}
 .container {
 	width: 100%;
 	max-width: 600px;
@@ -26,7 +32,7 @@
 }
 
 .logo img {
-	height: 50px;
+	height: 100px;
 	margin: 20px 0;
 }
 
@@ -47,6 +53,7 @@
 	font-size: 25px;
 	font-weight: bold;
 	margin-bottom: 10px;
+	color:white;
 }
 
 hr {
@@ -56,16 +63,30 @@ hr {
 }
 
 .contents {
-	border: 1px solid black;
+	border: 1px solid rgba(255,255,255,0.9);
 	padding: 30px;
 	border-radius: 10px;
-	background-color: #f9f9f9;
+	background-color: rgba(255,255,255,0.1);
+}
+input {
+	width: 100%;
+    height: 90%;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: white;
+}
+input:focus {
+    outline: none;
+    border-color: #007bff; 
+    background-color: rgba(255, 255, 255, 0.1); 
 }
 
 .guide {
 	font-size: 14px;
 	color: #555;
 	margin-bottom: 20px;
+	color:white;
 }
 
 .form-group {
@@ -78,6 +99,7 @@ hr {
 .form-group label {
 	width: 30%;
 	font-weight: bold;
+	color: white;
 }
 
 .form-group input {
@@ -141,7 +163,7 @@ hr {
 
 	<div class="container">
 		<div class="logo">
-			<!--              <img src="LogoB.png">  -->
+			<img src="images/LogoW.png">  
 		</div>
 
 		<div class="header">
@@ -251,12 +273,7 @@ hr {
 				data = JSON.parse(data);
 
 				if (data) {
-					Swal.fire({
-		                icon: "success",
-		                title: "변경되었습니다.",
-		                showConfirmButton: false,
-		                timer: 3000
-		            });
+					alert("변경되었습니다.");
 					localStorage.removeItem("id");
 					location.href = "/members/login.jsp";
 				}

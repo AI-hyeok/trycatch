@@ -25,6 +25,20 @@ public class GamescoreDAO {
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/orcl");
         return ds.getConnection();
     }
+    
+	public int addGameScore(String m_id, int g_id, int score)throws Exception{
+		String sql = "insert into game_scores values(s_seq.nextval,?,?,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, g_id);
+			pstmt.setString(2, m_id);
+			pstmt.setInt(3, score);
+			
+			int result = pstmt.executeUpdate();
+			return result;
+		}
+		// 정보 입력
+	}
 
     // 모든 게임 랭크보드 조회
     public List<GameRankingDTO> getAllGameRankBoards() throws Exception{
@@ -61,7 +75,7 @@ public class GamescoreDAO {
                      "JOIN games g ON gs.g_id = g.g_id " +
                      "JOIN members m ON gs.m_id = m.m_id " +
                      "WHERE g.g_id = ? " +
-                     "ORDER BY score DESC";
+                     "ORDER BY score DESC ";
 
         try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
@@ -83,4 +97,20 @@ public class GamescoreDAO {
 
         return rankList;
     }
+    
+	public int deleteGameScore(String id)throws Exception {
+	      String sql ="delete from game_scores where m_id=?";
+	      
+	      try(Connection con = this.getConnection();
+	            PreparedStatement pstat = con.prepareStatement(sql);){
+
+
+	         pstat.setString(1,id);
+	      
+	         int result = pstat.executeUpdate();
+
+	         return result;
+	      }
+	      
+	   }
 }

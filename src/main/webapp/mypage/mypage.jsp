@@ -2,234 +2,261 @@
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
- <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; }
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        * { 
+	        box-sizing: border-box; 
+	        margin: 0; 
+	        padding: 0; 
+        }
         
-        .head{
-            height: 60px;
-            display: flex;
-            align-items: center;
-            font-size: 35px;
-            font-weight: bold;
-            padding-left: 20px;
-            width: auto;
-            
+        body { 
+        	font-family: Arial, sans-serif; 
         }
-        .trycatch{
-        	cursor:pointer;
-        }
-        .titlemypage{
-            font-size: 18px;
-            height: 60px;
-            display: flex;
-            align-items: end;
-            padding-bottom: 10px;
-            margin-left: 15px; 
-            width: auto;
-          
-        }
-        .naviva{
-            width:100%;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background:black;
-        }
-        .naviva>.mypage,.whole_ranking,.community,.QandA{
-            float:left;
-            width:15%;
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:white;
-            background:black;
-            font-size:20px;
-            cursor:pointer;
-        
-        }
-        .first{
-            margin-top: 100px;
-            display: flex;
-            
-            height: 800px;
-            border:none;
-            
-            
-        }
-        .list{
-            width: 300px;
-            background-color: #d9d9d9;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px ;
-        }
-        li{
-            list-style: none;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40px;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: bold;
-        }
-        .inforbox{
-            
-            width: 800px;
-            height: 700px;
-            border-radius: 20px;
-            background-color: #d9d9d9;
-            border:none;
-            margin-left: 15%;
-        }
-        .information{
-            width: auto;
-            margin-left: 30px;
-            padding-top: 30px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-       
-        .inforboxSceond{
-            height: 25%;
-            display: flex;
-         
-            font-size: 20px;
-            margin-top: 5px;
-        }
-        .profilebox{
-            width: 18%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            
-        }
-        .profile{
-            margin-left: 10px;
-            background-color: rgb(241, 198, 205);
-            width: 70%;
-            height: 60%;
-            border-radius: 100px;
-        }
-        .idAndEmail{
-            width: 60%;
-            
-        }
-        .name{
-           
-            height: 30%;
-            padding-top: 30px;
-        }
-        .id{
-            height: 40%;
-            padding-top: 20px;
-           
-        }
-       
-        .myInformation{
-            width: 22%;
-            display: flex;
-            justify-content: center;
-            align-items: end;
-            font-weight: bold;
-            
+             /*네비바 css 지우고 여기서부터 추가*/
+   .id_login_button {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 10px 10px 0px 0px;
+   flex-direction: row;  /* 수평 배치 */
+     gap: 0px;
+}
 
+#loginBox{
+width:100%;
+height:30%;
+margin:0px;
+padding:20px;
+}
+
+#loginBox>div{
+   flex: 1; /* 각 div 요소의 크기를 동일하게 설정 */
+  text-align: center;
+  font-size: 20px;
+  color:white;
+}
+
+n{
+   position: relative;
+   display: flex;
+   padding: 90px;
+   margin: 40px 0;
+   color: #6a00ff;
+   text-decoration: none;
+   text-transform: uppercase;
+   transition: 0.5s;
+   letter-spacing: 4px;
+   overflow: hidden;
+   margin-right: 50px;
+   font-size: 40px;
+   font-weight: bold;
+   margin-top: 70px;
+}
+
+#loginBox>div:hover {
+   background: #fff700;
+   color: #2d2736;
+   box-shadow: 0 0 5px #fff700, 0 0 25px #fff700, 0 0 50px #fff700, 0 0
+      200px #6a00ff;
+   -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+
+n:nth-child(1) {
+   filter: hue-rotate(270deg);
+}
+
+n:nth-child(2) {
+   filter: hue-rotate(110deg);
+}
+
+n span {
+   position: absolute;
+   display: block;
+}
+
+n span:nth-child(1) {
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 2px;
+   background: linear-gradient(90deg, transparent,#fff700);
+   animation: animate1 1s linear infinite;
+}
+
+@keyframes animate1{
+    0%{
+        left: -100%;
+    }
+    50%,100%{
+        left: 100%;
+    }
+}
+n span:nth-child(2) {
+   top: -100%;
+   right: 0;
+   width: 2px;
+   height: 100%;
+   background: linear-gradient(180deg, transparent, #fff700);
+   animation: animate2 1s linear infinite;
+   animation-delay: 0.25s;
+}
+
+@keyframes animate2{
+    0%{
+        top: -100%;
+    }
+    50%,100%{
+        top: 100%;
+    }
+}
+n span:nth-child(3) {
+   bottom: 0;
+   right: 0;
+   width: 100%;
+   height: 2px;
+   background: linear-gradient(270deg, transparent, #fff700);
+   animation: animate3 1s linear infinite;
+   animation-delay: 0.50s;
+}
+
+@keyframes animate3{
+    0%{
+        right: -100%;
+    }
+    50%,100%{
+        right: 100%;
+    }
+}
+n span:nth-child(4) {
+   bottom: -100%;
+   left: 0;
+   width: 2px;
+   height: 100%;
+   background: linear-gradient(360deg, transparent, #fff700);
+   animation: animate4 1s linear infinite;
+   animation-delay: 0.75s;
+}
+
+@keyframes animate4{
+    0%{
+        bottom: -100%;
+    }
+    50%,100%{
+        bottom: 100%;
+    }
+} /*여기까지바꿈*/
+        .list li { cursor: pointer; text-align: center; padding: 10px 0; font-weight: bold; font-size: 20px;}
+        .profile { width: 100px; height: 100px; border-radius: 50%; background-color: rgb(162, 202, 214); display: flex; align-items: center; justify-content: center; }
+        .profile i { font-size: 50px; }
+       .list li:hover{
+            font-size: 25px;
         }
-        .inforboxThird{
-            margin-top: 5%;
-            height: 55%;
-            font-weight: bold;
-            font-size: 20px;
+        h1{
+            cursor: pointer;
         }
-        .email{
-            width: 80%;
-            margin-left: 150px;
+        h2{
+        	font-weight:bold;
         }
-        .phone{
-            width: 40%;
-            margin-left: 150px;
-            margin-top: 40px;
-            
+        h3{
+        	font-weight:bold;
         }
-        .birth{
-            width: 40%;
-            margin-left: 150px;
-            margin-top: 40px;
+       .trycatch{
+        font-weight: bold;
+       }
+       span{
+       	font-weight: bold;
+       	color:white;
+       }
+       .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
         }
-        .register{
-            width: 40%;
-            margin-left: 150px;
-            margin-top: 40px;
+        .listbox{
+        	opacity:0.9;
         }
-        .warning{
-            width: 40%;
-            margin-left: 150px;
-            margin-top: 40px;
-        }
-        
+    	.main{
+    		opacity:0.9;
+    	}
+    	.headerLogoImg{
+			width: 200px;
+		    height: auto;
+		}
+		
+		p{
+			font-size:17px;
+			font-weight:bold;
+		}
     </style>
 </head>
 <body>
+<img src="mypage/images/BGI.jpg" class="background-img">
+<div class="container">
+    <header class="d-flex align-items-center p-3">
+        <h1 class="h1 flex-grow-1 trycatch "><img class="headerLogoImg" src="mypage/images/LogoW.png"></h1>
+        <span class="fs-4">마이페이지</span>
+    </header>
 
- <div class="container">
-        <div class="head"><p class="trycatch">Try Catch</p><p class="titlemypage">마이페이지</p></div>
-        <div class="naviva">
-             <div class="mypage">마이페이지</div>
-            <div class="whole_ranking" >전체 랭킹</div>
-            <div class="community">커뮤니티</div>
-            <div class="QandA">Q&A</div>
+<div class="id_login_button">
+            <n id="loginBox">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="mypage">마이페이지</div>
+                <div class="whole_ranking">전체 랭킹</div>
+                <div class="community">커뮤니티</div>
+                <div class="QandA">Q&A</div>
+            </n>
         </div>
 
-        <div class="first">
-            <div class="list">
-                <li class="myupdate">개인정보 수정</li>
-                <hr>
-                <li class="myrank">내 랭킹 보기</li>
-                <hr>
-                <li class="myboard">내 게시물 보기</li>
-                <hr>
-                <li class="out">회원탈퇴</li>
-                <hr>
-            </div>
-            <div class="inforbox">
-                <div class="information">기본정보</div>
-                <div class="inforboxSceond">
-                    <div class="profilebox">
-                        <div class="profile"></div>
+    <div class="row mt-4">
+        <aside class="col-md-3 list bg-light p-3 rounded listbox">
+            <ul class="list-unstyled">
+              <hr><li class="myupdate">개인정보 수정</li><hr>
+                <li class="myrank">내 랭킹 보기</li><hr>
+                <li class="myboard">내 게시물 보기</li><hr>
+                <li class="out">회원탈퇴</li><hr>
+            </ul>
+        </aside>
+        
+        <main class="col-12 col-md-9 main">
+            <div class="p-4 bg-light rounded">
+                <h2>기본정보</h2>
+                <div class="d-flex align-items-center gap-5">
+                    <div class="profile"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <p>이름: ${list.name}</p>
+                        <p>아이디: ${list.m_id}</p>
+                        <p>닉네임: ${list.nickname}</p>
                     </div>
-                    <div class="idAndEmail">
-             	
-                    	<div class="name">${list.name}</div>
-                        <div class="id">아이디: ${list.m_id}</div>
-                        <div class="nickname">닉네임: ${list.nickname}</div>
-                       
-                    </div>
-                    <div class="myInformation">내 정보</div>
                 </div>
-                <hr style="width: 100%">
-                <div class="inforboxThird">
-                
-                	<div class="email">이메일: ${list.email}</div>
-                    <div class="phone">전화번호: ${list.phone}</div>
-                    <div class="birth">생년월일: ${list.birth}</div>
-                 <div class="register">가입일자: ${list.signup_date}</div>
-               	<div class="warning">경고횟수: ${list.warning_count}</div>
-           
-                </div>
-                
+                <hr>
+                <h3>내 정보</h3>
+                <p>이메일: ${list.email}</p>
+                <p>전화번호: ${list.phone}</p>
+                <p>생년월일: ${list.birth}</p>
+                <c:if test="${not empty list.address1}">
+                    <p>집주소: ${list.address1}</p>
+                    <p>${list.address2}</p>
+                </c:if>
+                <p>가입일자: ${list.signup_date}</p>
+                <p>경고횟수: ${list.warning_count}</p>
             </div>
-        </div>
-       
+        </main>
     </div>
 
 	<script>
@@ -238,27 +265,23 @@
 		window.location.href="/index.jsp";
 	})//index로가기
 
-	
-	
 	//네비바
 	$(".mypage").on("click",function(){
-		window.location.href="/mypage/mypage.jsp";
+		window.location.href="/mypage.mypages";
 	})//마이페이지로가기
 	
 	$(".whole_ranking").on("click",function(){
-		window.location.href="/rank/ranklist.jsp";
+		window.location.href="/ranklist.games";
 	})//전체랭킹가기
 	
 	$(".community").on("click",function(){
-		window.location.href="/common/comlist.jsp";
+		window.location.href="/list.comboard";
 	})//자유게시판가기
 	
 	$(".QandA").on("click",function(){
-		window.location.href="/qna/qnalist.jsp";
+		window.location.href="/qnalist.qnaboard";
 	})//qna게시판가기
-	
-	
-	
+		
 	//리스트
 	$(".myupdate").on("click",function(){
 		window.location.href="/myupdate.mypages";

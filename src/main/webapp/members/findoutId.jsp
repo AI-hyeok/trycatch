@@ -11,14 +11,42 @@
 <style>
 	* {
 		box-sizing: border-box;
+		margin:0;
+		padding:0;
 	}
+html, body {
+	 	height: 100vh;
+    	background-image: url('images/findID2.jpg'); 
+    	background-size: cover;
+    	background-position: center; 
+   		background-repeat:no-repeat;
+   		color:rgba(255,255,255,0.9);
+}
 
-	/* div{
-        border:1px solid black;
-         } */
-	.container {
+.navi {
 		width: 100%;
-		margin: auto;
+		height: 100px;
+		display: flex;
+    	justify-content: center; 
+    	align-items: center; 
+	}
+.logo img{
+		height:100px;
+}
+	.navi>div {
+		width: 150px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		
+}
+	.navi>div {
+		width: 150px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	
 	}
 
 	.subContainer {
@@ -31,43 +59,47 @@
 	.title {
 		font-size: 25px;
 		font-weight: bold;
+		color:rgba(255,255,255,0.9);
 	}
 
-	.navi {
-		width: 100%;
-		height: 60px;
-		margin-bottom: 50px;
-		background-color: rgb(218, 218, 218);
-		padding-left: 300px;
+		align-items: center;
+	
 	}
 
-	.navi>div {
-		float: left;
-		width: 150px;
-		height: 100%;
+	.subContainer {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-weight: bold;
-		font-size: 18px;
+		flex-direction: column;
 	}
+
+	.title {
+		font-size: 25px;
+		font-weight: bold;
+		color:rgba(255,255,255,0.9);
+	}
+
 
 	.header, .contents, .btn {
 		width: 50%;
 	}
 
 	.contents {
-		border: 1px solid black;
+		border: 1px solid rgba(255,255,255,0.9);
 		width: 50%;
 		height: 300px;
 		margin-top: 30px;
 		margin-bottom: 30px;
 		padding: 30px;
+		background-color:rgba(255,255,255,0.1);
+		border-radius:10px;
+		
 	}
 
 	.guide {
 		width: 100%;
 		height: 50px;
+		color:rgba(255,255,255,0.9);
 	}
 
 	.name, .email, .inputCode {
@@ -98,7 +130,10 @@
 		height: 50px;
 		margin-left: 33.33%;
 	}
-
+	.inputCode input::placeholder{
+		color:white;
+	}
+	
 	.btn {
 		display: flex;
 		justify-content: center;
@@ -106,15 +141,47 @@
 	}
 
 	button {
-		width: 100px;
-		height: 30px;
-		border-radius: 0px;
-		background-color: rgb(214, 214, 214);
+		width: 100%;
+        max-width: 150px;
+        height: 40px;
+        border: none;
+        background-color: rgb(214, 214, 214);
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.3s;
 	}
+	button:hover {
+        background-color: rgb(180, 180, 180);
+    }
+	.btn button {
+        width: 120px;
+        height: 40px;
+        border-radius: 5px;
+        background-color: rgb(100, 100, 100);
+        color: white;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
+    .btn button:hover {
+        background-color: rgb(70, 70, 70);
+    }
 	input {
 		width: 100%;
 		height: 90%;
+		border: 1px solid #ccc; 
+    	border-radius: 5px;
+    	background-color: rgba(255, 255, 255, 0.1); 
+    	color: white; 
+	}
+	input:focus {
+    	outline: none;
+    	border-color: #007bff; 
+    	background-color: rgba(255, 255, 255, 0.1); 
 	}
 </style>
 
@@ -129,13 +196,12 @@
 %>
 <form action="/findId.members" method="post">
 	<div class="container">
-		<div class="logo">
-			<img src="LogoB.png" style="height: 50px;">
-		</div>
 		<div class="navi">
-			<div>아이디 찾기</div>
-			<div>비밀번호 찾기</div>
+		<div class="logo">
+			 <img src="images/LogoW.png">
 		</div>
+		</div>
+		
 		<div class="subContainer">
 			<div class="header">
 				<div class="title">아이디 찾기</div>
@@ -143,25 +209,25 @@
 			</div>
 			<div class="contents">
 				<div class="contentsContainer">
-					<div class="guide">회원정보에 등록한 이메일 주소와 입력한 이메일 주소가 같아야 인증번호를 받을
+					<div class="guide">등록된 이메일 주소와 이름이 현재 입력한 이메일 주소와 이름과 같아야 등록된 아이디를 받을
 						수 있습니다.</div>
 					<div class="name">
 						<div>이름</div>
 						<div>
-							<input type="text" name="name">
+							<input type="text" name="name" placeholder="기존에 가입한 이름을 입력하세요">
 						</div>
 					</div>
 					<div class="email">
 						<div>이메일</div>
 						<div>
-							<input type="text" name="email">
+							<input type="text" name="email" placeholder="기존에 가입한 이메일을 입력하세요">
 						</div>
 						<div>
 							<button id="sendCode">아이디 확인</button>
 						</div>
 					</div>
 					<div class="inputCode">
-						<input type="text" id="foundId" placeholder="가입하신 아이디" readonly>
+						<input type="text" id="foundId" placeholder="등록된 아이디" readonly>
 						
 					</div>
 				</div>
@@ -169,7 +235,7 @@
 			
 			<div class="btn">
 			<a href="/members/login.jsp">
-				<button type="button">다음</button>
+				<button type="button">로그인 하기</button>
 			</a>
 			</div>
 		</div>

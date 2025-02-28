@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import dao.GamescoreDAO;
 import dto.GameRankingDTO;
 
@@ -30,6 +31,8 @@ public class GameController extends HttpServlet {
 
         try {
             if (cmd.equals("/ranklist.games")) {
+            	
+            	 String loginID = (String)request.getSession().getAttribute("loginID");
             	// 모든 게임 랭킹 조회
                 List<GameRankingDTO> allRankList = dao.getAllGameRankBoards();
 
@@ -42,13 +45,25 @@ public class GameController extends HttpServlet {
                     }
                     groupedRanks.get(gameName).add(rank);
                 }
-
-                // 그룹화된 랭킹 데이터를 request에 저장하여 JSP로 전달
+                request.setAttribute("loginID", loginID);
                 request.setAttribute("groupedRanks", groupedRanks);
 
-
-                // JSP로 포워딩
                 request.getRequestDispatcher("/rank/ranklist.jsp").forward(request, response);
+            }else if(cmd.equals("/addScore.games")) {
+            	int gameScore = Integer.parseInt(request.getParameter("gameScore"));
+                int gameId = Integer.parseInt(request.getParameter("gameId"));
+                String loginID = (String)request.getSession().getAttribute("loginID");
+                
+                if(loginID==null) {
+                    response.setContentType("text/plain");
+                    response.getWriter().write("LOGIN_REQUIRED"); 
+                }else {
+                	dao.addGameScore(loginID, gameId, gameScore); 
+                	 response.setContentType("text/plain");
+                	 response.getWriter().write("게임 데이터 처리 완료");
+                }
+            	
+            	
             }
         } catch (Exception e) {
             e.printStackTrace();

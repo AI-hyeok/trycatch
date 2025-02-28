@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -30,7 +32,7 @@ public class ComBoardController extends HttpServlet {
 
 		FilesDAO fdao = FilesDAO.getInstance();
 		ComBoardDAO CBdao = ComBoardDAO.getInstance();
-
+		Gson g = new Gson();
 		try {
 			if(cmd.equals("/list.comboard")){
 				String loginId = (String)request.getSession().getAttribute("loginID");
@@ -55,9 +57,18 @@ public class ComBoardController extends HttpServlet {
 				}else if(cpage > pageTotalCount) {
 					cpage=pageTotalCount;
 				}
-				int end = cpage * Statics.recordCountPerPage;
-				int start = end - (Statics.recordCountPerPage-1);
-				List <ComBoardDTO> list = CBdao.selectFromTo(start, end);
+				List <ComBoardDTO> list = new ArrayList<>();
+				if(cpage == 1) {
+					int end = (cpage * Statics.recordCountPerPage) - CBdao.getNoticeRecordTotalCount(); //공지 3개 7 4개 6
+					int start = 1;
+					list = CBdao.selectFromTo(start, end);
+				}else {
+					int end = cpage * Statics.recordCountPerPage - CBdao.getNoticeRecordTotalCount(); 
+					int start = end - (Statics.recordCountPerPage - 1); 
+					list = CBdao.selectFromTo(start, end);
+				}
+				
+				
 				int startNavi = (cpage-1) /Statics.naviCountPerPage * Statics.naviCountPerPage + 1;
 				int endNavi = startNavi + Statics.naviCountPerPage - 1;
 
@@ -80,6 +91,8 @@ public class ComBoardController extends HttpServlet {
 					request.setAttribute("notice", noticeList);
 				}
 				
+				
+				
 				request.getSession().setAttribute("loginID", loginId);
 				request.setAttribute("list", list);
 				request.setAttribute("cpage", cpage);
@@ -90,9 +103,6 @@ public class ComBoardController extends HttpServlet {
 
 
 				request.getRequestDispatcher("/common/comlist.jsp").forward(request, response);
-
-
-			
 
 		}else if(cmd.equals("/write.comboard")) {
 			String loginId = (String)request.getSession().getAttribute("loginID");
@@ -146,7 +156,7 @@ public class ComBoardController extends HttpServlet {
 			}else {
 				CBdao.addContents(loginId, title, contents, "Y");
 			}
-
+			request.setAttribute("cpage", 1);
 			request.getRequestDispatcher("/list.comboard").forward(request, response);
 
 
@@ -179,12 +189,68 @@ public class ComBoardController extends HttpServlet {
 			
 		}else if(cmd.equals("/searchBoard.comboard")) {
 			String inputSearch = request.getParameter("inputSearch");
-			List <ComBoardDTO> searchResultList = CBdao.searchByInputText(inputSearch);
+			String scpage = (String)request.getParameter("cpage");
+			if(scpage == null) {
+				scpage = "1";
+			}
+
+			int recordTotalCount = CBdao.getSearchRecordTotalCount(inputSearch);
+			int pageTotalCount = 0;
+			if(recordTotalCount % Statics.recordCountPerPage > 0) {
+				pageTotalCount = recordTotalCount / Statics.recordCountPerPage + 1;
+			}else {
+				pageTotalCount = recordTotalCount / Statics.recordCountPerPage;
+			}
+
+			int cpage = Integer.parseInt(scpage);
+
+
+			if(cpage < 1) {
+				cpage = 1;
+			}else if(cpage > pageTotalCount) {
+				cpage=pageTotalCount;
+			}
+			int end = cpage * Statics.recordCountPerPage;
+			int start = end - (Statics.recordCountPerPage-1);
 			
+			int startNavi = (cpage-1) /Statics.naviCountPerPage * Statics.naviCountPerPage + 1;
+			int endNavi = startNavi + Statics.naviCountPerPage - 1;
+
+
+			boolean needPrev = true;
+			boolean needNext = true;
+
+
+			if(endNavi > pageTotalCount) {
+				endNavi = pageTotalCount;
+			}
+
+			if(startNavi == 1) {needPrev = false;}
+			if(endNavi >= pageTotalCount) {needNext = false;}
+
+
+			
+
+			List <ComBoardDTO> searchResultList = CBdao.searchByInputText(inputSearch, start, end);
+			request.setAttribute("inputSearch", inputSearch);
+			request.setAttribute("startNavi", startNavi);
+			request.setAttribute("endNavi", endNavi);
+			request.setAttribute("needPrev", needPrev);
+			request.setAttribute("needNext", needNext);
 			request.setAttribute("resultList", searchResultList);
 			request.getRequestDispatcher("/common/comboardSearchResult.jsp").forward(request, response);
 		
-		}
+		}else if(cmd.equals("/indexBoard.comboard")) {
+	         int cpage = Integer.parseInt(request.getParameter("cpage"));
+	         List <ComBoardDTO> list = new ArrayList<>();
+	         int end = cpage * Statics.recordCountPerPage - CBdao.getNoticeRecordTotalCount(); 
+	         int start = end - (Statics.recordCountPerPage - 1); 
+	         list = CBdao.selectFromTo(start, end);
+	        
+	         response.setContentType("text/html; charset=utf8");
+	         response.getWriter().append(g.toJson(list));
+	            
+	      }
 
 
 	}catch(Exception e) {
