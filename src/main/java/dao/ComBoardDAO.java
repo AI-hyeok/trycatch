@@ -99,7 +99,7 @@ public class ComBoardDAO {
 			try(ResultSet rs = pstat.executeQuery();){
 				rs.next();
 				int seq = rs.getInt("c_seq");
-				String m_nickname = this.getNickname(seq);
+				String m_nickname = this.getBoardNickname(seq);
 				String m_id = rs.getString("m_id");
 				String title = rs.getString("title");
 				String contents = rs.getString("contents");
@@ -227,7 +227,7 @@ public class ComBoardDAO {
 					while(rs.next()) {
 						int c_seq = rs.getInt("c_seq");
 						String m_id = rs.getString("m_id");
-						String m_nickname = this.getNickname(c_seq);
+						String m_nickname = this.getBoardNickname(c_seq);
 						String title = rs.getString("title");
 						String contents = rs.getString("contents");
 						Timestamp write_date = rs.getTimestamp("write_date");

@@ -16,31 +16,30 @@ class Game extends Phaser.Scene {
         }
     }
 
-    create() {
-        this.cameras.main.setBackgroundColor('#ffffff50');
-        this.cursor = this.input.keyboard.createCursorKeys();
-        this.initializeGrid();
-        this.addRandomTile();
-        this.addRandomTile();
-        this.updateScore(); // 점수 업데이트
-        this.drawTiles();
-        
+	create() {
+	    this.cameras.main.setBackgroundColor('#ffffff50');
+	    this.cursor = this.input.keyboard.createCursorKeys();
 
-    }
+	    this.grid = [];
+	    this.tiles.forEach(tile => tile.destroy());
+	    this.tiles = [];
+	    this.score = 0;
+	    this.isGameOver = false;
+	    this.isKeyPressed = false;
+	
+	    this.initializeGrid();
+	    console.log("그리드 초기화 완료:", this.grid);
+	
+	    this.addRandomTile();
+	    this.addRandomTile();
+	    console.log("새로운 타일 추가 완료:", this.grid);
+	
+	    this.updateScore();
+	    this.drawTiles();
+	}
 	restart() {
-		 console.log("Game Restarting...");
-        // 게임 상태 초기화
-        this.grid = [];
-        this.tiles = [];
-        this.score = 0;
-        this.isGameOver = false;
-        this.isKeyPressed = false;
-
-        this.initializeGrid();
-        this.addRandomTile();
-        this.addRandomTile();
-        this.updateScore(); // 점수 초기화
-        this.drawTiles(); // 타일 그리기
+        this.scene.stop();
+    	this.scene.start();
     }
 
     initializeGrid() {

@@ -283,7 +283,7 @@ input[type="radio"]+label {
 						</div>
 						<div class="inputText rounded-bottom">
 							<i class="fa-regular fa-envelope"></i><input type="text"
-								name="email" id="mail" placeholder="[선택]이메일주소(아이디찾기 등 본인 확인용)">
+								name="email" id="mail" placeholder="[필수]이메일주소(아이디찾기 등 본인 확인용)">
 						</div>
 					</div>
 					<div class="box2">
@@ -671,11 +671,6 @@ input[type="radio"]+label {
                 return false;
             }
 	
-            
-            
-            
-            
-             
               
                 if (!isIdChecked || !isNicknameChecked) {
                     event.preventDefault();  

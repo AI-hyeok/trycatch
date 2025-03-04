@@ -59,7 +59,9 @@
     <div class="container">
 	    <div id="scoreBox">Score: 0</div>
 	    <div id="gamebox"></div>
+	    <a href="/index.jsp">
 	    <div class="logo"><img src="images/LogoW.png" style="height:150px;"></div>
+	    </a>
     </div>
   
     <script>

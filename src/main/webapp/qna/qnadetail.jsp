@@ -133,7 +133,14 @@
 			width: 10%;
 			margin: 5px;
 		}
-
+		#back{
+		    background-color: rgba(78, 51, 128); /* 버튼 배경색 */
+		    color: white;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+			height:40px;
+		}
 
 		.updateCancleBtn,
 		.updateDoneBtn,
@@ -601,7 +608,7 @@
 			<div class="col-12 titleDetail">Q&A게시판</div>
 			<div class="title">
 				<div class="btn">
-					<button id="back" type="button">목록으로 돌아가기</button>
+					<button id="back" type="button">목록으로</button>
 					<script>
 						$("#back").on("click", function () {
 							let last_cpage = sessionStorage.getItem("last_cpage");

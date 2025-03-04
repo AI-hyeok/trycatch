@@ -94,15 +94,7 @@ public class MembersController extends HttpServlet {
 			boolean result = dao.findPw(id,name,email);
 			
 			response.getWriter().append(String.valueOf(result));
-			/*
-			request.setAttribute("pw",result);
-			if(result) {
-				request.getRequestDispatcher("/members/resetPw.jsp").forward(request, response);
-			}else {
-				request.getRequestDispatcher("/members/findoutPw.jsp").forward(request, response);
-			}
-			
-		*/
+
 			
 		
 		}else if(cmd.equals("/nicknameCheck.members")) {
@@ -124,18 +116,12 @@ public class MembersController extends HttpServlet {
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 
-			System.out.println(password+":"+id);
-			int result = dao.passwordUpdate(id,password);
-			
+			int result = dao.passwordUpdate(id,password);		
 			boolean isUpdated = (result > 0);
 			
 			response.getWriter().append(String.valueOf(isUpdated));
-			//request.getRequestDispatcher("/members/login.jsp").forward(request, response);
 		}
-		
-	
-		
-		
+
 		
 		}catch(Exception e) {
 			e.printStackTrace();

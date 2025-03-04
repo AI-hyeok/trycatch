@@ -145,7 +145,7 @@
     <div id="header">
         <div id="title-box">Wordle</div>
     </div>
-
+	
      <!-- 게임 시작 화면 -->
      <div id="start-screen">
         <h1>Wordle</h1>
@@ -181,6 +181,10 @@
 
         </div>
     </div>
+    
+    	<a href="/index.jsp">
+	    	<div class="logo"><img src="LogoW.png" style="height:100px; "></div>
+	    </a>
     
     <script src="index.js" type="module"></script>
 </body>

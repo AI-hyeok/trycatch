@@ -264,7 +264,7 @@ function removeLetter() {
 function startup() {
     const game = document.getElementById('game');
     
-    // 🔴 기존 grid가 있다면 삭제 (중복 방지)
+
     const existingGrid = document.querySelector(".grid");
     if (existingGrid) {
         existingGrid.remove();
@@ -274,5 +274,4 @@ function startup() {
 
     registerKeyboardEvents();
 
-    // console.log(state.secret);
 }

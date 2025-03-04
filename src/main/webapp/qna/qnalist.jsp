@@ -496,7 +496,7 @@
 				</table>
 				</div>
 			</div>
-			</div>
+			
 			<div class="col-12 pageNavi">			
 				<c:if test="${needPrev}">
 					<span class="paging" page="${stratNavi-1}">
@@ -509,16 +509,7 @@
 					<span class="paging" page="${endNavi+1}">></span>
 				</c:if>	
 			</div>	
-			<script>
-				$(".paging").on("click", function () {
-				let pageNum = $(this).attr("page");
-				sessionStorage.setItem("last_cpage", pageNum);
-				location.href = "/qnalist.qnaboard?cpage=" + pageNum;
-			})
-			</script>
-		</div>
-
-	<div class="row footer">
+				<div class="row footer">
 		<div class="col-12 footerContents">
 			<div class="col-12 footerTexts">
 				이메일:trycatch@gmail.com|채팅 : 카카오톡 채널(아이디 트라이캐치)<br> <br>충청남도
@@ -530,6 +521,16 @@
 			</div>
 		</div>
 	</div>
+			</div>
+			<script>
+				$(".paging").on("click", function () {
+				let pageNum = $(this).attr("page");
+				sessionStorage.setItem("last_cpage", pageNum);
+				location.href = "/qnalist.qnaboard?cpage=" + pageNum;
+			})
+			</script>
+		</div>
+
 
 <script>
 	$(".trycatch").on("click", function () {

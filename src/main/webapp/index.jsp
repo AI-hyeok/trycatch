@@ -198,7 +198,7 @@
             padding: 70px;
             padding-left:110px;
             padding-right:110px;
-            color: #2100ff;
+            color: #03e4f4;
             text-decoration: none;
             text-transform: uppercase;
             transition: 0.5s;
@@ -211,7 +211,7 @@
         }
 
         b:hover {
-            background: #2100ff;
+            background: #03e4f4;
             color: #ffffff;
             box-shadow: 0 0 5px #03e4f4,
                 0 0 25px #03e4f4,
@@ -409,6 +409,14 @@
             justify-content: center;
             padding:10px;
         }
+        #postTitle {
+	     text-decoration: none; /* 밑줄 제거 */
+	     color: black; /* 원하는 색상으로 변경 (예: 빨간색) */
+	   }
+   
+   		#postTitle:hover{
+			font-weigt:bold;
+         }
     </style>
     
     <script>
@@ -496,8 +504,8 @@
                 <c:when test="${loginID != null}">
                     <div class="col-12 d-md-block col-md-2">
                         <button id="logoutBtn"
-                            style="background-color: rgba(0, 0, 0, 0); color:white; border:1px solid white; padding:10px; margin-top: 30px;   border-radius: 5px; font-weight:bold; font-size:18px;">LogOut</button>
-                        <div class="welcomeId">${loginID}님</div>
+                            style="background-color: rgba(0, 0, 0, 0); color:white; float:left; border:1px solid white; padding:10px; margin-top: 30px;   border-radius: 5px; font-weight:bold; font-size:18px;">LogOut</button>
+                        <div class="welcomeId" style="float:left; padding-top:40px; padding-left:5px; font-size:20px;">${loginID}님</div>
                     </div>
                 </c:when>
             </c:choose>
@@ -690,8 +698,8 @@
                                 </div>
                      
                                 <div class="row mx-auto infoList">
-                                    <div id="findId" class="col-12 d-none d-sm-block col-sm-4">findID</div>
-                                    <div id="findPw" class="col-12 d-none d-sm-block col-sm-4">findPW</div>
+                                    <div id="findId" class="col-12 d-none d-sm-block col-sm-4">FindID</div>
+                                    <div id="findPw" class="col-12 d-none d-sm-block col-sm-4">FindPW</div>
                                     <div id="signupBtn1" class="col-12 d-none d-sm-block col-sm-4">SignUp</div>
                                 </div>
                             </div>
@@ -710,18 +718,7 @@
                         <i class="fa-duotone fa-solid fa-user-pen fa-sm"></i> 자유게시판
                     </div>
                     <table id="indexboard"class="col-12" style="border-top: 2px solid black;">
-                        <colgroup>
-                            <col style="width:60%; height:100%;">
-                            <col style="width:20%; height:100%;">
-                            <col style="width:20%; height:100%;">
-                        </colgroup>
-                        <tr style="width: 100%; height:50px;"
-                            style="border-top: 1px dashed rgba(211, 211, 211, 0.744);">
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>조회수</th>
-                        </tr>
-
+                       
                     </table>
                 </div>
             </div>

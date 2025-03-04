@@ -20,6 +20,9 @@
             height: 100vh;
             z-index: -1;
         }
+        .background-img:hover{
+            cursor:pointer;
+        }
         .container {
 			margin: auto;
 			display: flex;
@@ -181,9 +184,9 @@
             font-weight: bold; 
             text-align: center; 
             margin: 30px 0; 
-            border-bottom: 5px solid black; 
+            border-bottom: 5px solid white; 
             padding-bottom: 10px; 
-            color: #FFFFFF;
+            color: #000000;
         }
         
         /* 랭킹 테이블 */
@@ -213,11 +216,11 @@
         }
         
         tr {
-        	background-color: rgba(0,0,0,0.7);
+        	background-color: rgba(255,255,255,0.861);
         }
         
         th, td {
-        	color:white;
+        	color:black;
 	        padding: 10px; 
 	        border: 3px solid white; 
 	        text-align: center; 
@@ -225,7 +228,7 @@
         
         th {
         	color:black;
-        	background: lightgray; 
+        	background: #4a46c864; 
         }
         
         .footer {
@@ -261,7 +264,7 @@
             </h1>
 
         </header>
-		 <!-- <div class="naviva d-flex justify-content-around text-white p-3"> -->
+
 		 <div class="id_login_button">
 			<n id="loginBox"> 
 				<span></span> 
@@ -270,7 +273,7 @@
 				<span></span>
 				<c:choose>
 				<c:when test="${loginID != null}">
-				<div class="mypage">마이페이지</div>
+				<div class="mypage" id="mypage">마이페이지</div>
 				</c:when>
 				<c:when test="${loginID == null}">
 				<div class="mypage" id="nullmypage">마이페이지</div>
@@ -329,11 +332,11 @@
 		window.location.href="/index.jsp";
 	})//index로가기	
 	//네비바
-	$(".mypage").on("click",function(){
+	$("#mypage").on("click",function(){
 		window.location.href="/mypage.mypages";
 	})//마이페이지로가기
 	$("#nullmypage").on("click",function(){
-		alert("/로그인을 해주세요.");
+		alert("로그인을 해주세요.");
 	})//마이페이지로가기
 	$(".whole_ranking").on("click",function(){
 		window.location.href="/ranklist.games";

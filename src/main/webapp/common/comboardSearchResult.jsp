@@ -582,7 +582,6 @@ n span:nth-child(4) {
 		window.location.href="/qnalist.qnaboard";
 	})//qna게시판가기	
     let search = "${inputSearch}";
-    console.log(search);
 	$(".paging").on("click",function(){
 		let pageNum = $(this).attr("page");
 		 sessionStorage.setItem("last_cpage",pageNum);

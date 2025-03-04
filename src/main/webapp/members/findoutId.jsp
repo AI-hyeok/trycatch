@@ -16,7 +16,7 @@
 	}
 html, body {
 	 	height: 100vh;
-    	background-image: url('images/findID2.jpg'); 
+    	background-image: url('/image/findID2.jpg'); 
     	background-size: cover;
     	background-position: center; 
    		background-repeat:no-repeat;
@@ -198,7 +198,7 @@ html, body {
 	<div class="container">
 		<div class="navi">
 		<div class="logo">
-			 <img src="images/LogoW.png">
+			 <img src="/image/LogoW.png">
 		</div>
 		</div>
 		
@@ -244,8 +244,12 @@ html, body {
 
 <script>
    $(document).ready(function() {
-        var foundId = "<%= m_id %>";  <%--JSP에서 받은 값 --%>
-       $("#foundId").val(foundId);   <%--input 태그에 값 설정--%>
+        var foundId = "<%= m_id %>";
+        if(foundId != null){
+	       $("#foundId").val(foundId);    	
+        }else{
+        	$("#foundId").val("잘못된 값입니다.");    
+        }
    });
 </script>
 

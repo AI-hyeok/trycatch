@@ -413,6 +413,10 @@
             bottom: 100%;
          }
       }
+      form{
+            display:flex;
+            justify-content:space-around;
+         }
    </style>
 </head>
 
@@ -451,23 +455,27 @@
             </div>
             <div class="row boardList">
               <form action="/search.qnaboard">
-               <div class="col-12 d-none d-sm-block col-sm-4 searchBox">
+                 <div class="col-6 d-none d-sm-block col-sm-4 searchBox">
                      <input id="inputSearch" type="text" name="search" placeholder="작성자를 입력해주세요"
                         value="${search}">
                      <button id="searchBtn" type="submit">검색</button>
 
-                  
-               </div>
+                    </div>
+               
                <c:choose>
                   <c:when test="${loginID != null || loginID == 'admin'}">
-                     <div class="col-12 col-sm-6 writeBtn">
+                     <div class="col-6 col-sm-6 writeBtn">
                         <a href="/qnawrite.qnaboard"><button type="button" style="background-color: #4a46c864;border-radius: 5px;border: 1px solid #EEEEEE;">게시물 작성하기</button></a>
-                     </div>
+                      </div>
+                
+                    
                   </c:when>
+                 
                   <c:when test="${loginID == null}">
-                     <div class="col-12 col-sm-6 writeBtn">
+                     <div class="col-6 col-sm-6 writeBtn">
                         <button id="nowrite" style="background-color: #4a46c864;border-radius: 5px;border: 1px solid #EEEEEE;">게시물 작성하기</button>
                      </div>
+                     
                   </c:when>
                </c:choose>
                </form>
@@ -549,6 +557,18 @@
             </div>   
          </div>
       </div>
+         <div class="row footer">
+      <div class="col-12 footerContents">
+         <div class="col-12 footerTexts">
+            이메일:trycatch@gmail.com|채팅 : 카카오톡 채널(아이디 트라이캐치)<br> <br>충청남도
+            천안시 서북구 두정중10길|전화번호 : 1633-122001<br> <br>© Try catch
+            Korea Corporation All Rights Reserved.
+         </div>
+         <div class="col-12 logoText">
+            <img class="logoImg" src="qna/images/LogoW.png">
+         </div>
+      </div>
+   </div>
    </div>
    <script>
 	$(".trycatch").on("click",function(){
@@ -580,18 +600,7 @@
          location.href = "/search.qnaboard?search=" + search + "&cpage=" + pageNum;
       })
    </script>
-   <div class="row footer">
-      <div class="col-12 footerContents">
-         <div class="col-12 footerTexts">
-            이메일:trycatch@gmail.com|채팅 : 카카오톡 채널(아이디 트라이캐치)<br> <br>충청남도
-            천안시 서북구 두정중10길|전화번호 : 1633-122001<br> <br>© Try catch
-            Korea Corporation All Rights Reserved.
-         </div>
-         <div class="col-12 logoText">
-            <img class="logoImg" src="qna/images/LogoW.png">
-         </div>
-      </div>
-   </div>
+
 </body>
 
 </html>

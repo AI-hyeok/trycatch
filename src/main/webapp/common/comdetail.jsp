@@ -6,10 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -482,7 +480,12 @@ input[type="button"] {
 .replyTr{
 background-color:rgba(255, 255, 255, 0.5);
 }
-
+.dropdown-toggle::after {
+	display:none;
+	}
+.note-dropdown-menu {
+    z-index: 1050 !important;
+}
 
 </style>
 
@@ -605,9 +608,7 @@ $(function() {
 			     	        	            // 서식 [글머리 기호, 번호매기기, 문단정렬]
 			     	        	            ['para', ['ul', 'ol', 'paragraph']],
 			     	        	            // 줄간격 설정
-			     	        	            ['height', ['height']],
-			     	        	            // 이미지 첨부
-			     	        	            ['insert',['picture']]
+			     	        	            ['height', ['height']]
 			     	        	          ],
 			     	        	          // 추가한 글꼴
 			     	        	        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
@@ -762,6 +763,17 @@ $(function() {
 						<div class="col-12 addReplyBtn">
 							<button class="col-12 d-none d-md-block col-md-12" id="addReplyBtn" class="addBtn">댓글 등록</button>
 						</div>
+						
+						<script>
+                         $("#addReplyBtn").on("click", function(){
+                            if($("#replyText").val() == ""){
+                               alert("댓글을 입력해주세요.");
+                                 $("#replyText").focus();
+                                 event.preventDefault();
+                                 return false;
+                            }
+                         })
+                      </script>
 					</div>
 				</form>
 				</c:when>

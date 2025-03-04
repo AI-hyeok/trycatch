@@ -90,4 +90,13 @@ public class ReplyDAO {
 
 		}
 	}
+	
+	public void deleteMyReply(String m_id)throws Exception {
+		String sql = "delete from reply where m_id = ?";
+		try(Connection con = this.getConnection();
+			PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, m_id);
+			pstat.executeUpdate();
+		}
+	}
 }

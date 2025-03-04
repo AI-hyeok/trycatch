@@ -393,7 +393,7 @@ n span:nth-child(4) {
                 <span></span>
                 <span></span>
                 <span></span>
-                <div class="mypage">마이페이지</div>
+                <div class="mypage" id="mypage">마이페이지</div>
                 <div class="whole_ranking">전체 랭킹</div>
                 <div class="community">커뮤니티</div>
                 <div class="QandA">Q&A</div>
@@ -407,14 +407,14 @@ n span:nth-child(4) {
                 <span></span>
                 <span></span>
                 <span></span>
-                <div class="mypage">마이페이지</div>
+                <div class="mypage" id="nullmypage">마이페이지</div>
                 <div class="whole_ranking">전체 랭킹</div>
                 <div class="community">커뮤니티</div>
                 <div class="QandA">Q&A</div>
             </n>
         </div>
         <script>
-        $(".mypage").on("click", function(){
+        $("#nullmypage").on("click", function(){
             alert("로그인이 필요합니다.");
         })
         </script>
@@ -473,7 +473,7 @@ n span:nth-child(4) {
                                         <a href="/detail.comboard?c_seq=${i.c_seq}">${i.title}</a>
                                     </td>
                                     <td class="col-3 col-md-2">${i.m_id}</td>
-                                    <td class="col-md-2">${i.write_date}</td>
+                                    <td class="col-md-2">${i.timeLabel}</td>
                                     <td class="col-md-2">${i.view_count}</td>
                                 </tr>
                             </c:forEach>
@@ -487,7 +487,7 @@ n span:nth-child(4) {
                                 <a href="/detail.comboard?c_seq=${i.c_seq}" id='postTitle'>${i.title}</a>
                             </td>
                             <td class="col-3 col-md-2">${i.m_nickname}</td>
-                            <td class="col-md-2">${i.write_date}</td>
+                            <td class="col-md-2">${i.timeLabel}</td>
                             <td class="col-md-2">${i.view_count}</td>
                         </tr>
                     </c:forEach>
@@ -547,7 +547,7 @@ n span:nth-child(4) {
    	})//index로가기
 
    	//네비바
-   	$(".mypage").on("click",function(){
+   	$("#mypage").on("click",function(){
    		window.location.href="/mypage.mypages";
    	})//마이페이지로가기
    	

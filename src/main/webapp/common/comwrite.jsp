@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<!-- Summernote Lite 버전 -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 	
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -454,7 +454,12 @@ n span:nth-child(4) {
     }
 }
 
-
+.dropdown-toggle::after {
+	display:none;
+	}
+.note-dropdown-menu {
+    z-index: 1050 !important;
+}
 
 </style>
 </head>
@@ -509,7 +514,7 @@ n span:nth-child(4) {
                 <button id="listBtn" type="button">목록보기</button></a>
                 <button class="col-2" id="insertBtn">게시하기</button>
                 <script>
-                $("#insertBoard").on("click", function(){
+                $("#insertBtn").on("click", function(){
                 	if($("#inputTitle").val() == ""){
                 		alert("제목을 입력해주세요.");
            			 	$("#inputTitle").focus();
@@ -555,31 +560,31 @@ n span:nth-child(4) {
     </div>
 </form>
 <script>
-$(document).ready(function() {
-    $('#contents').summernote({
-        height: 800,  // 에디터 크기 설정
-        lang: 'ko-KR',  // 한글 설정
-        toolbar: [
-            ['fontsize', ['fontsize']],
-            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-            ['color', ['color']],
-            ['table', ['table']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['insert',['picture']]
-        ],
-        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72','96'],
-        focus: true,  // 페이지 로드시 커서 위치
-        callbacks: { 
-            onImageUpload: function(files, editor, welEditable) {   
-                for (var i = 0; i < files.length; i++) {
-                    imageUploader(files[i], this);
-                }
-            }
-        }
-    });
-});
+				$(document).ready(function() {
+				    $('#contents').summernote({
+				        height: 800,  // 에디터 크기 설정
+				        lang: 'ko-KR',  // 한글 설정
+				        toolbar: [
+				        	['fontname', ['fontname']],
+				            ['fontsize', ['fontsize']],
+				            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				            ['color', ['color']],
+				            ['table', ['table']],
+				            ['para', ['ul', 'ol', 'paragraph']],
+				            ['height', ['height']]
+				        ],
+				        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+				        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72','96'],
+				        focus: true,  // 페이지 로드시 커서 위치
+				        callbacks: { 
+				            onImageUpload: function(files, editor, welEditable) {   
+				                for (var i = 0; i < files.length; i++) {
+				                    imageUploader(files[i], this);
+				                }
+				            }
+				        }
+				    });
+				});
 
 
 	        	 

@@ -13,6 +13,7 @@ import dao.ComBoardDAO;
 import dao.GamescoreDAO;
 import dao.MembersDAO;
 import dao.QnaBoardDAO;
+import dao.ReplyDAO;
 import dto.ComBoardDTO;
 import dto.MembersDTO;
 import dto.MyrankDTO;
@@ -31,7 +32,7 @@ public class MypageController extends HttpServlet {
 		ComBoardDAO comdao = ComBoardDAO.getInstance();
 		QnaBoardDAO qnadao = QnaBoardDAO.getInstance();
 		GamescoreDAO gamescoredao = GamescoreDAO.getInstance();
-		
+		ReplyDAO rdao = ReplyDAO.getInstance();
 		try {
 
 			if(cmd.equals("/mypage.mypages")) { //마이페이지로 갈때 
@@ -56,8 +57,6 @@ public class MypageController extends HttpServlet {
 
 			}
 			else if(cmd.equals("/updateMyInformation.mypages")) {
-				//dao.showMembersById(loginID); //session에있는 Id로 members 가져오기
-				
 				String loginID = (String)request.getSession().getAttribute("loginID");
 				String nickname = request.getParameter("nickname");
 				String phone = request.getParameter("phone");
@@ -128,6 +127,7 @@ public class MypageController extends HttpServlet {
 				comdao.deleteComboardById(loginID);
 				qnadao.deleteQnaboardById(loginID);
 				gamescoredao.deleteGameScore(loginID);
+				rdao.deleteMyReply(loginID);
 				
 				request.getSession().invalidate();
 				response.sendRedirect("/index.jsp");	
